@@ -1,0 +1,30 @@
+{
+    "name": "node-red-contrib-pushsafer",
+    "version": "1.0.1",
+    "description": "A PushSafer API wrapper for Node-RED",
+    "dependencies": {
+        "pushsafer-notifications": "^0.1.8",
+        "node-base64-image": "^1.0.6"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer.git"
+    },
+    "license": "MIT",
+    "keywords": [
+        "node-red",
+        "pushsafer",
+        "notification",
+        "Smarthome",
+        "Internet of Things",
+        "IoT"
+    ],
+    "node-red": {
+        "nodes": {
+            "pushsafer": "pushsafer.js"
+        }
+    },
+    "author": {
+        "name": "Oliver 'FreeTimeCoder82' Tries <freetimecoder82@outlook.com>"
+    }
+}
