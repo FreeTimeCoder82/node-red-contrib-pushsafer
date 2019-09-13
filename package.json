@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-pushsafer",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A PushSafer API wrapper for Node-RED",
     "dependencies": {
         "pushsafer-notifications": "^0.1.8",
@@ -21,7 +21,7 @@
     ],
     "node-red": {
         "nodes": {
-            "pushsafer": "pushsafer.js"
+            "pushsafer": "pushsafer/pushsafer.js"
         }
     },
     "author": {
