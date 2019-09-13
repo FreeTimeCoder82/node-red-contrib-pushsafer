@@ -1,0 +1,408 @@
+<!--Type definition node for the api key-->
+<script type="text/x-red" data-template-name="pushsafer-api-key">
+    <div class="form-row">
+        <label for="node-config-input-apikey"><i class="fa fa-key"></i> API-Key</label>
+        <input type="text" id="node-config-input-apikey">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="PushSafer API-Key Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="pushsafer-api-key">
+    <p>Configures an API-Key</p>
+    <dl class="message-properties">
+        <dt>API-Key<span class="property-type">string</span></dt>
+        <dd>Your private or alias key is required for authentication each time a push notification is sent.
+            You can find it in your Pushsafer dashboard.
+            Alias Key, you can set and use with predefined parameters.</dd>
+    </dl>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('pushsafer-api-key',{
+        category: 'config',
+        defaults: {
+            name: {value: ''}
+        },
+        credentials: {
+            apikey: {type: 'text', required: true, validate: function(v){
+                return String(v).length === 20 ? true : false;
+            }}           
+        },
+        label: function() {
+            return this.name || 'PushSafer API-Key Name';
+        }
+    });
+</script>
+
+<!--Type definition node for the notification template-->
+<script type="text/x-red" data-template-name="pushsafer-notification-template">
+    <div class="form-row">
+        <label for="node-config-input-title"><i class="fa fa-header"></i> Title</label>
+        <input type="text" id="node-config-input-title" placeholder="Title of a push-notification, max. 255 characters">
+    </div>    
+    <div class="form-row">
+        <label for="node-config-input-icon"><i class="fa fa-thumbs-o-up"></i> Icon</label>
+        <input type="number" min="1" max="177" id="node-config-input-icon" placeholder="Icon of the notification">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon Color</label>
+        <input type="color" value="#FFFFFF" id="node-config-input-iconcolor">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-sound"><i class="fa fa-volume-up"></i> Sound</label>
+        <select id="node-config-input-sound" style="width:70%">
+            <option value></option>
+            <option value="0"></span>Silent</option>
+            <option value="1">Ahem (IM)</option>
+            <option value="2">Applause (Mail)</option>
+            <option value="3">Arrow (Reminder)</option>
+            <option value="4">Baby (SMS)</option>
+            <option value="5">Bell (Alarm)</option>
+            <option value="6">Bicycle (Alarm2)</option>
+            <option value="7">Boing (Alarm3)</option>
+            <option value="8">Buzzer (Alarm4)</option>
+            <option value="9">Camera (Alarm5)</option>
+            <option value="10">Car Horn (Alarm6)</option>
+            <option value="11">Cash Register (Alarm7)</option>
+            <option value="12">Chime (Alarm8)</option>
+            <option value="13">Creaky Door (Alarm9)</option>
+            <option value="14">Cuckoo Clock (Alarm10)</option>
+            <option value="15">Disconnect (Call)</option>
+            <option value="16">Dog (Call2)</option>
+            <option value="17">Doorbell (Call3)</option>
+            <option value="18">Fanfare (Call4)</option>
+            <option value="19">Gun Shot (Call5)</option>
+            <option value="20">Honk (Call6)</option>
+            <option value="21">Jaw Harp (Call7)</option>
+            <option value="22">Morse (Call8)</option>
+            <option value="23">Electricity (Call9)</option>
+            <option value="24">Radio Tuner (Call10)</option>
+            <option value="25">Sirens</option>
+            <option value="26">Military Trumpets</option>
+            <option value="27">Ufo</option>
+            <option value="28">Whah Whah Whah</option>
+            <option value="29">Man Saying Goodbye</option>
+            <option value="30">Man Saying Hello</option>
+            <option value="31">Man Saying No</option>
+            <option value="32">Man Saying Ok</option>
+            <option value="33">Man Saying Ooohhhweee</option>
+            <option value="34">Man Saying Warning</option>
+            <option value="35">Man Saying Welcome</option>
+            <option value="36">Man Saying Yeah</option>
+            <option value="37">Man Saying Yes</option>
+            <option value="38">Beep short</option>
+            <option value="39">Weeeee short</option>
+            <option value="40">Cut in and out short</option>
+            <option value="41">Finger flicking glas short</option>
+            <option value="42">Wa Wa Waaaa short</option>
+            <option value="43">Laser short</option>
+            <option value="44">Wind Chime short</option>
+            <option value="45">Echo short</option>
+            <option value="46">Zipper short</option>
+            <option value="47">HiHat short</option>
+            <option value="48">Beep 2 short</option>
+            <option value="49">Beep 3 short</option>
+            <option value="50">Beep 4 short</option>
+            <option value="51">The Alarm is armed</option>
+            <option value="52">The Alarm is disarmed</option>
+            <option value="53">The Backup is ready</option>
+            <option value="54">The Door is closed</option>
+            <option value="55">The Door is opend</option>
+            <option value="56">The Window is closed</option>
+            <option value="57">The Window is open</option>
+            <option value="58">The Light is off</option>
+            <option value="59">The Light is on</option>
+            <option value="60">The Doorbell rings</option>	
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-vibration"><i class="fa fa-rss"></i> Vibration</label>
+        <select id="node-config-input-vibration" style="width:70%">
+            <option value></option>
+            <option value="1">one time</option>
+            <option value="2">two times</option>
+            <option value="3">three times</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-priority"><i class="fa fa-exclamation"></i> Priority</label>
+        <select id="node-config-input-priority" style="width:70%">
+            <option value></option>
+            <option value="-2">lowest</option>
+            <option value="-1">low</option>
+            <option value="0">normal</option>
+            <option value="1">high</option>
+            <option value="2">highest</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-devices"><i class="fa fa-tablet"></i> Devices</label>
+        <input type="text" id="node-config-input-devices" placeholder="Devices or device groups the message is sent to">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-timetolive"><i class="fa fa-heart-o"></i> Time to live</label>
+        <input type="number" min="0" max="43200" step="1" id="node-config-input-timetolive" placeholder="Time in minutes before automatic deletion">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-retry"><i class="fa fa-repeat"></i> Retry</label>
+        <input type="number" min="60" max="10800" step="60" id="node-config-input-retry" placeholder="Time in seconds a message will be resent">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-expire"><i class="fa fa-heart"></i> Expire</label>
+        <input type="number" min="60" max="10800" step="1" id="node-config-input-expire" placeholder="Time in seconds after resending stops">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-answer"><i class="fa fa-commenting-o"></i> Answer</label>
+        <select id="node-config-input-answer" style="width:70%">
+            <option value></option>
+            <option value="0">not allowed</option>
+            <option value="1">allowed</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-url"><i class="fa fa-external-link"></i> URL</label>
+        <input type="url" id="node-config-input-url" placeholder="URL can be opened from the notification">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-urltitle"><i class="fa fa-external-link"></i> URL Title</label>
+        <input type="text" id="node-config-input-urltitle" placeholder="Title for the URL">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-image"><i class="fa fa-picture-o"></i> Image</label>
+        <input type="text" id="node-config-input-image" placeholder="URL or local path to the image">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-image2"><i class="fa fa-picture-o"></i> Image 2</label>
+        <input type="text" id="node-config-input-image2" placeholder="URL or local path to the image">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-image3"><i class="fa fa-picture-o"></i> Image 3</label>
+        <input type="text" id="node-config-input-image3" placeholder="URL or local path to the image">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="PushSafer Notification Template Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="pushsafer-notification-template">
+    <p>Configures a template for notifications</p>
+
+    <ol id="pushsafer-template-icon-list">
+        <div id="pushsafer-icon-list-left" style="float:left">
+        </div>
+        <div id="pushsafer-icon-list-middle" style="float:left; margin-left: 60px">
+        </div>
+        <div id="pushsafer-icon-list-right" style="float:left; margin-left: 60px">
+        </div>
+    </ol>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('pushsafer-notification-template',{
+        category: 'config',
+        defaults: {
+            name: {value: ''},
+            title: {value: null, required: false, validate: function(v){
+                return String(v).length <= 255 ? true : false;
+            }},
+            icon: {value: null, required: false, validate: function(v){
+                return (v >= 1 && v <= 177) || v === '' ? true : false;
+            }},
+            iconcolor: {value: '#FFFFFF', required: false, validate: function(v){
+                return /^#[0-9A-F]{6}$/i.test(v);
+            }},
+            sound: {value: null, required: false, validate: function(v){
+                return (v >= 0 && v <= 60) || v === '' ? true : false;
+            }}, 
+            vibration: {value: null, required: false, validate: function(v){
+                return (v >= 1 && v <= 3) || v === '' ? true : false;
+            }}, 
+            priority: {value: null, required: false, validate: function(v){
+                return (v >= -2 && v <= 2) || v === '' ? true : false;
+            }},
+            devices: {required: false}, 
+            timetolive: {value: null, required: false, validate: function(v){
+                return (v >= 0 && v <= 43200) || v === '' ? true : false;
+            }},
+            retry: {value: null, required: false, validate: function(v){
+                return (v >= 60 && v <= 10800) || v === '' ? true : false;
+            }},
+            expire: {value: null, required: false, validate: function(v){
+                return (v >= 60 && v <= 10800) || v === '' ? true : false;
+            }},
+            answer: {value: null, required: false, validate: function(v){
+                return (v >= 0 && v <= 1) || v === '' ? true : false;
+            }},
+            url: {required: false},
+            urltitle: {required: false},            
+            image: {required: false}, 
+            image2: {required: false}, 
+            image3: {required: false}
+        },
+        label: function() {
+            return this.name || 'PushSafer Notification Template Name';
+        },
+        oneditprepare: function(){
+            setTimeout(function(){
+                for (i=1; i<=64; i++){
+                    $('#pushsafer-icon-list-left').append('<li><img src="https://www.pushsafer.com/assets/icons/' + i + '.jpg" width="32" height="32"></li>');
+                }    
+                for (i=65; i<=128; i++){
+                    $('#pushsafer-icon-list-middle').append('<li><img src="https://www.pushsafer.com/assets/icons/' + i + '.jpg" width="32" height="32"></li>');
+                }
+                for (i=129; i<=177; i++){
+                    $('#pushsafer-icon-list-right').append('<li><img src="https://www.pushsafer.com/assets/icons/' + i + '.jpg" width="32" height="32"></li>');
+                }
+                $('#pushsafer-template-icon-list').hide();
+                $('#node-config-input-icon').focusin(function(){
+                    $('#pushsafer-template-icon-list').show();
+                });
+                $('#node-config-input-icon').focusout(function(){
+                    $('#pushsafer-template-icon-list').hide();
+                });
+            }, 250);
+        }        
+    });
+</script>
+
+<!--Type definition node for the pushsafer node itself-->
+<script type="text/x-red" data-template-name="pushsafer">
+    <div class="form-row">
+        <label for="node-input-apikey"><i class="fa fa-key"></i> API-Key</label>
+        <input type="text" id="node-input-apikey">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-input-notificationtemplate"><i class="fa fa-key"></i> Notification Template</label>
+        <input type="text" id="node-input-notificationtemplate">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips" id="node-tip">
+        A <code>msg.payload</code> is required to send as the message of the notification.<br>
+        See help for more available options.
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="pushsafer">
+    <p>A Pushsafer API wrapper for Node-RED.</p>
+    <p>This node can be used in three different variants.</p>
+    <p>
+        <ol>
+            <li>Using templates, to reuse the settings of a notification in other node instances.</li>
+            <li>Providing all settings in the msg object. See optional inputs below.</li>
+            <li>A combination of both variants. Using a template and then override some settings by adding the parameter in the msg object.</li>
+        </ol>
+    </p>
+
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>payload<span class="property-type">string</span></dt>
+            <dd> the message of the notification</dd>
+
+            <dt class="optional">title<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">icon<span class="property-type">number</span></dt>
+            <dd> the icon number of the notification</dd>
+
+            <dt class="optional">iconcolor<span class="property-type">color</span></dt>
+            <dd> the background color of the icon</dd>
+
+            <dt class="optional">sound<span class="property-type">number</span></dt>
+            <dd> the sound number of the notification</dd>
+
+            <dt class="optional">vibration<span class="property-type">number</span></dt>
+            <dd> the count of vibrations of the notification</dd>
+
+            <dt class="optional">priority<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">devices<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">timetolive<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">retry<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">expire<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">answer<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">url<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">urltitle<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">image<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">image2<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">image3<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+        </dl>
+    
+     <h3>Outputs</h3>
+         <ol class="node-ports">
+             <li>Standard output
+                 <dl class="message-properties">
+                     <dt>payload <span class="property-type">object</span></dt>
+                     <dd>the notification object which was sent to the pushsafer server</dd>
+                 </dl>
+             </li>
+             <li>Standard error
+                 <dl class="message-properties">
+                     <dt>payload <span class="property-type">object</span></dt>
+                     <dd>the result object with success or error information</dd>
+                 </dl>
+             </li>
+         </ol>
+    
+    <h3>Details</h3>
+        <p><code>msg.payload</code> is used as the message of the published notification.
+        If it contains an Object it will be converted to a JSON string before being sent.
+        If it contains a binary Buffer the message will be published as it is.</p>
+            
+    <h3>References</h3>
+        <ul>
+            <li><a href="https://www.pushsafer.com/pushapi_ext" target="_blank">Pushsafer API docs</a> - full description of all parameter</li>
+            <li><a href="https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer" target="_blank">GitHub</a> - the nodes github repository</li>
+        </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('pushsafer',{
+        category: 'notifications',
+        defaults: {            
+            name: {value: ''},
+            apikey: {type: 'pushsafer-api-key', required: true},
+            notificationtemplate: {type: 'pushsafer-notification-template', required: true}
+        },
+        color: '#FC5800',
+        inputs: 1,
+        inputLabels: 'msg.payload = notification message',
+        outputs: 2,
+        outputLabels: ['notification JSON','result JSON'],
+        icon: 'pushsafer.png',
+        align: 'right',
+        label: function() {
+            return this.name || 'Pushsafer';
+        }
+    });
+</script>
