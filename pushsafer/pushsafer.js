@@ -33,7 +33,8 @@ module.exports = function(RED) {
         this.urltitle = config.urltitle;
         this.image = config.image; 
         this.image2 = config.image2; 
-        this.image3 = config.image3; 
+        this.image3 = config.image3;
+        this.imagesize = config.imagesize; 
     }
 
     RED.nodes.registerType('pushsafer-notification-template', PushSaferNotificationTemplate);
@@ -95,7 +96,8 @@ module.exports = function(RED) {
                 m:  msg.payload,
                 p:  msg.image       || node.notificationtemplate.image,
                 p2: msg.image2      || node.notificationtemplate.image2,
-                p3: msg.image3      || node.notificationtemplate.image3
+                p3: msg.image3      || node.notificationtemplate.image3,
+                is: msg.imagesize   || node.notificationtemplate.imagesize
             };           
 
             node.status({fill: 'yellow', shape: 'ring', text: 'try to get images'});

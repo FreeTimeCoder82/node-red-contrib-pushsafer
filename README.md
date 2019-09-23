@@ -15,6 +15,7 @@ Run the following command in your Node-RED user directory - typically `~/.node-r
 Or use the palette manager inside of Node-RED
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-pushsafer.svg)](https://www.npmjs.com/package/node-red-contrib-pushsafer)
+[![dependencies Status](https://david-dm.org/freetimecoder82/node-red-contrib-pushsafer/status.svg)](https://david-dm.org/freetimecoder82/node-red-contrib-pushsafer)
 
 ## Required inputs
 
