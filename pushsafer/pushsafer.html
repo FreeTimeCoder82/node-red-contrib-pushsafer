@@ -42,21 +42,21 @@
 <script type="text/x-red" data-template-name="pushsafer-notification-template">
     <div class="form-row">
         <label for="node-config-input-title"><i class="fa fa-header"></i> Title</label>
-        <input type="text" id="node-config-input-title" placeholder="Title of a push-notification, max. 255 characters">
+        <input type="text" id="node-config-input-title" placeholder="Title of the push-notification, max. 255 characters">
     </div>    
     <div class="form-row">
-        <label for="node-config-input-icon"><i class="fa fa-thumbs-o-up"></i> Icon</label>
-        <input type="number" min="1" max="177" id="node-config-input-icon" placeholder="Icon of the notification">
+        <label for="node-config-input-icon"><i class="fa fa-file-image-o"></i> Icon</label>
+        <input type="number" min="1" max="177" id="node-config-input-icon" placeholder="Icon of the push-notification">
     </div>
     <div class="form-row">
-        <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon Color</label>
+        <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon color</label>
         <input type="color" value="#FFFFFF" id="node-config-input-iconcolor">
     </div>
     <div class="form-row">
         <label for="node-config-input-sound"><i class="fa fa-volume-up"></i> Sound</label>
         <select id="node-config-input-sound" style="width:70%">
             <option value></option>
-            <option value="0"></span>Silent</option>
+            <option value="0">Silent</option>
             <option value="1">Ahem (IM)</option>
             <option value="2">Applause (Mail)</option>
             <option value="3">Arrow (Reminder)</option>
@@ -120,7 +120,7 @@
         </select>
     </div>
     <div class="form-row">
-        <label for="node-config-input-vibration"><i class="fa fa-rss"></i> Vibration</label>
+        <label for="node-config-input-vibration"><i class="fa fa-bell"></i> Vibration</label>
         <select id="node-config-input-vibration" style="width:70%">
             <option value></option>
             <option value="1">1x</option>
@@ -153,7 +153,7 @@
     </div>
     <div class="form-row">
         <label for="node-config-input-expire"><i class="fa fa-heart"></i> Expire</label>
-        <input type="number" min="60" max="10800" step="1" id="node-config-input-expire" placeholder="Time in seconds after resending stops">
+        <input type="number" min="60" max="10800" step="60" id="node-config-input-expire" placeholder="Time in seconds after resending stops">
     </div>
     <div class="form-row">
         <label for="node-config-input-answer"><i class="fa fa-commenting-o"></i> Answer</label>
@@ -165,7 +165,7 @@
     </div>
     <div class="form-row">
         <label for="node-config-input-url"><i class="fa fa-external-link"></i> URL</label>
-        <input type="url" id="node-config-input-url" placeholder="URL can be opened from the notification">
+        <input type="url" id="node-config-input-url" placeholder="URL which can be opened from the push-notification">
     </div>
     <div class="form-row">
         <label for="node-config-input-urltitle"><i class="fa fa-external-link"></i> URL Title</label>
@@ -184,7 +184,7 @@
         <input type="text" id="node-config-input-image3" placeholder="URL or local path to the image">
     </div>
     <div class="form-row">
-        <label for="node-config-input-imagesize"><i class="fa fa-exclamation"></i> Image Size</label>
+        <label for="node-config-input-imagesize"><i class="fa fa-picture-o"></i> Image Size</label>
         <select id="node-config-input-imagesize" style="width:70%">
             <option value></option>
             <option value="0">1024px</option>
@@ -201,7 +201,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="pushsafer-notification-template">
-    <p>Configures a template for notifications</p>
+    <p>Configures a template for push-notifications</p>
 
     <ol id="pushsafer-template-icon-list">
         <div id="pushsafer-icon-list-left" style="float:left">
@@ -219,43 +219,45 @@
         defaults: {
             name: {value: ''},
             title: {value: null, required: false, validate: function(v){
-                return String(v).length <= 255 ? true : false;
+                return String(v).length <= 255;
             }},
             icon: {value: null, required: false, validate: function(v){
-                return (v >= 1 && v <= 177) || v === '' ? true : false;
+                return (v >= 1 && v <= 177) || (v === '');
             }},
-            iconcolor: {value: '#FFFFFF', required: false, validate: function(v){
+            iconcolor: {value: null, required: false, validate: function(v){
                 return /^#[0-9A-F]{6}$/i.test(v);
             }},
             sound: {value: null, required: false, validate: function(v){
-                return (v >= 0 && v <= 60) || v === '' ? true : false;
+                return (v >= 0 && v <= 60) || (v === '');
             }}, 
             vibration: {value: null, required: false, validate: function(v){
-                return (v >= 1 && v <= 3) || v === '' ? true : false;
+                return (v >= 1 && v <= 3) || (v === '');
             }}, 
             priority: {value: null, required: false, validate: function(v){
-                return (v >= -2 && v <= 2) || v === '' ? true : false;
+                return (v >= -2 && v <= 2) || (v === '');
             }},
-            devices: {required: false}, 
+            devices: {value: null, required: false, validate: function(v){
+                return String(v).length <= 255;
+            }}, 
             timetolive: {value: null, required: false, validate: function(v){
-                return (v >= 0 && v <= 43200) || v === '' ? true : false;
+                return (v >= 0 && v <= 43200) || (v === '');
             }},
             retry: {value: null, required: false, validate: function(v){
-                return (v >= 60 && v <= 10800) || v === '' ? true : false;
+                return (v >= 60 && v <= 10800) || (v === '');
             }},
             expire: {value: null, required: false, validate: function(v){
-                return (v >= 60 && v <= 10800) || v === '' ? true : false;
+                return (v >= 60 && v <= 10800) || (v === '');
             }},
             answer: {value: null, required: false, validate: function(v){
-                return (v >= 0 && v <= 1) || v === '' ? true : false;
+                return (v >= 0 && v <= 1) || (v === '');
             }},
-            url: {required: false},
-            urltitle: {required: false},            
-            image: {required: false}, 
-            image2: {required: false}, 
-            image3: {required: false},
+            url: {value: null, required: false},
+            urltitle: {value: null, required: false},            
+            image: {value: null, required: false}, 
+            image2: {value: null, required: false}, 
+            image3: {value: null, required: false},
             imagesize: {value: null, required: false, validate: function(v){
-                return (v >= 0 && v <= 3) || v === '' ? true : false;
+                return (v >= 0 && v <= 3) || (v === '');
             }}
         },
         label: function() {
@@ -263,15 +265,12 @@
         },
         oneditprepare: function(){
             setTimeout(function(){
-                for (i=1; i<=64; i++){
+                for (let i=1; i<=60; i++){
                     $('#pushsafer-icon-list-left').append('<li><img src="https://www.pushsafer.com/assets/icons/' + i + '.jpg" width="32" height="32"></li>');
+                    $('#pushsafer-icon-list-middle').append('<li><img src="https://www.pushsafer.com/assets/icons/' + (i + 60) + '.jpg" width="32" height="32"></li>');
+                    if (i+120 <= 177)
+                        $('#pushsafer-icon-list-right').append('<li><img src="https://www.pushsafer.com/assets/icons/' + (i + 120) + '.jpg" width="32" height="32"></li>');
                 }    
-                for (i=65; i<=128; i++){
-                    $('#pushsafer-icon-list-middle').append('<li><img src="https://www.pushsafer.com/assets/icons/' + i + '.jpg" width="32" height="32"></li>');
-                }
-                for (i=129; i<=177; i++){
-                    $('#pushsafer-icon-list-right').append('<li><img src="https://www.pushsafer.com/assets/icons/' + i + '.jpg" width="32" height="32"></li>');
-                }
                 $('#pushsafer-template-icon-list').hide();
                 $('#node-config-input-icon').focusin(function(){
                     $('#pushsafer-template-icon-list').show();
@@ -371,21 +370,21 @@
             <dd> the title of the notification</dd>
         </dl>
     
-     <h3>Outputs</h3>
-         <ol class="node-ports">
-             <li>Standard output
-                 <dl class="message-properties">
-                     <dt>payload <span class="property-type">object</span></dt>
-                     <dd>the notification object which was sent to the pushsafer server</dd>
-                 </dl>
-             </li>
-             <li>Standard error
-                 <dl class="message-properties">
-                     <dt>payload <span class="property-type">object</span></dt>
-                     <dd>the result object with success or error information</dd>
-                 </dl>
-             </li>
-         </ol>
+    <h3>Outputs</h3>
+        <ol class="node-ports">
+            <li>Standard output
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">object</span></dt>
+                    <dd>the notification object which was sent to the pushsafer server</dd>
+                </dl>
+            </li>
+            <li>Standard error
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">object</span></dt>
+                    <dd>the result object with success or error information</dd>
+                </dl>
+            </li>
+        </ol>
     
     <h3>Details</h3>
         <p><code>msg.payload</code> is used as the message of the published notification.
@@ -395,7 +394,7 @@
     <h3>References</h3>
         <ul>
             <li><a href="https://www.pushsafer.com/pushapi_ext" target="_blank">Pushsafer API docs</a> - full description of all parameter</li>
-            <li><a href="https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer" target="_blank">GitHub</a> - the nodes github repository</li>
+            <li><a href="https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer" target="_blank">GitHub</a> - the nodes GitHub repository</li>
         </ul>
 </script>
 
