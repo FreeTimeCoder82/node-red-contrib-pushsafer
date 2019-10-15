@@ -39,3 +39,6 @@ Or use the palette manager inside of Node-RED
 - `msg.image` (string): The path of an image, which will be shown directly in the notification. Local file path or http(s) url, [see description](https://www.pushsafer.com/pushapi_ext#API-P)
 - `msg.image2` (string): The path of a second image, which will be shown in the Pushsafer app. Local file path or http(s) url, [see description](https://www.pushsafer.com/pushapi_ext#API-P)
 - `msg.image3` (string): The path of a third image, which will be shown in the Pushsafer app. Local file path or http(s) url, [see description](https://www.pushsafer.com/pushapi_ext#API-P)
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbODg1MzkwMzZdfQ==
+-->
