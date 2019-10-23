@@ -1,0 +1,128 @@
+<!--Type definition node for the pushsafer node itself-->
+<script type="text/x-red" data-template-name="pushsafer_read">
+    <div class="form-row">
+        <label for="node-input-configApi"><i class="fa fa-key"></i> API</label>
+        <input type="text" id="node-input-configApi">
+    </div>
+    <div class="form-row">
+        <label for="node-input-configDevices"><i class="fa fa-tablet"></i> Devices</label>
+        <input type="text" id="node-input-configDevices">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips" id="node-tip1">
+        The selected API is not stored in the backend. Deploy the current settings to scan for devices.
+    </div>
+    <div class="form-tips" id="node-tip2">
+        The selected API is already stored in the backend. You can use it to scan for devices.
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="pushsafer_read">
+    <p>Read the latest messages from the Pushsafer server for a device.</p>
+    <p>This node can be used in three different variants.</p>
+    <p>
+        <ol>
+            <li>Using templates, to reuse the settings of a notification in other node instances.</li>
+            <li>Providing all settings in the msg object. See optional inputs below.</li>
+            <li>A combination of both variants. Using a template and then override some settings by adding the parameter in the msg object.</li>
+        </ol>
+    </p>
+
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt class="optional">devices<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+        </dl>
+    
+    <h3>Outputs</h3>
+        <ol class="node-ports">
+            <li>Standard output
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">object</span></dt>
+                    <dd>the notification object which was sent to the pushsafer server</dd>
+                </dl>
+            </li>
+            <li>Standard error
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">object</span></dt>
+                    <dd>the result object with success or error information</dd>
+                </dl>
+            </li>
+        </ol>
+    
+    <h3>Details</h3>
+        <p><code>msg.payload</code> is used as the message of the published notification.
+        If it contains an Object it will be converted to a JSON string before being sent.
+        If it contains a binary Buffer the message will be published as it is.</p>
+            
+    <h3>References</h3>
+        <ul>
+            <li><a href="https://www.pushsafer.com/pushapi_ext" target="_blank">Pushsafer API docs</a> - full description of all parameter</li>
+            <li><a href="https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer" target="_blank">GitHub</a> - the nodes GitHub repository</li>
+        </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('pushsafer_read',{
+        category: 'pushsafer',
+        defaults: {            
+            name: {value: ''},
+            configApi: {type: 'pushsafer-config-api', required: true},
+            configDevices: {type: 'pushsafer-config-devices', required: true}
+        },
+        color: '#FC5800',
+        inputs: 1,
+        inputLabels: 'msg.payload = notification message',
+        outputs: 3,
+        outputLabels: ['notification JSON','result JSON','message ID'],
+        icon: 'pushsafer.png',
+        align: 'right',
+        label: function() {
+            return this.name || 'Pushsafer Read';
+        },
+        paletteLabel: 'read',
+        oneditprepare: function()
+        {
+            $('#node-tip1').hide();
+            $('#node-tip2').hide();
+            
+            var scope = this;
+
+            let lastSelectedConfigApi = $('#node-input-configApi').val();
+            $('#node-input-configApi').change(function(e){
+                lastSelectedConfigApi = this.value;
+                console.log('API: ', lastSelectedConfigApi);
+                askAdmin();
+            });
+            
+            let lastSelectedConfigDevices = $('#node-input-configDevices').val();
+            $('#node-input-configDevices').change(function(e){
+                lastSelectedConfigDevices = this.value;
+                console.log('DEVICES: ', lastSelectedConfigDevices);
+            });
+
+            function askAdmin (){
+            $.getJSON('pushsafer/checkForValidConfigApi', {nodeid: lastSelectedConfigApi})
+                .done(function(result) {
+                    console.log(result);
+                    if (result){
+                        $('#node-tip1').hide();
+                        $('#node-tip2').show();
+                    }
+                    
+                })
+                .fail(function(error)
+                {
+                    console.log(error);
+                    $('#node-tip1').show();
+                        $('#node-tip2').hide();
+                });
+            }
+            
+        }
+    });
+</script>
