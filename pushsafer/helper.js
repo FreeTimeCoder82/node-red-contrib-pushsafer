@@ -87,18 +87,23 @@ module.exports = class PushsaferHelper {
     }
 
     static async getAndParseImage(imagePath, node) {
-        if (imagePath) {
-            const hasProtocol = imagePath.match(/^(\w+:\/\/)/gim);
-            const extension = imagePath.slice(((imagePath.lastIndexOf('.') - 1) >>> 0) + 2);
-            const options = { string: true, local: !hasProtocol };
-            try {
-                const base64image = await base64encoder(imagePath, options);
-                return 'data:image/' + extension + ';base64,' + base64image;
-            } catch (error) {
-                node.warn('image could not be parsed to base64, may be file does not exist');
-                return null;
+        if (imagePath){
+            if (imagePath.startsWith('data:')) {
+                return imagePath;
+            } else {
+                const hasProtocol = imagePath.match(/^(\w+:\/\/)/igm);
+                const extension = imagePath.slice((imagePath.lastIndexOf(".") - 1 >>> 0) + 2);
+                const options = {string: true, local: !hasProtocol};
+                try{
+                    const base64image = await base64encoder(imagePath, options);
+                    return 'data:image/' + extension + ';base64,' + base64image;
+                }
+                catch(error) {
+                    node.warn('image could not be parsed to base64, may be file does not exist');
+                    return null;
+                }
             }
-        }
+        };
         return null;
     }
 
