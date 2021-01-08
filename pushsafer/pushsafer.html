@@ -116,7 +116,9 @@
             <option value="57">The Window is open</option>
             <option value="58">The Light is off</option>
             <option value="59">The Light is on</option>
-            <option value="60">The Doorbell rings</option>	
+            <option value="60">The Doorbell rings</option>
+            <option value="61">Pager short</option>
+            <option value="62">Pager long</option>
         </select>
     </div>
     <div class="form-row">
@@ -154,6 +156,10 @@
     <div class="form-row">
         <label for="node-config-input-expire"><i class="fa fa-heart"></i> Expire</label>
         <input type="number" min="60" max="10800" step="60" id="node-config-input-expire" placeholder="Time in seconds after resending stops">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-confirm"><i class="fa fa-check"></i> Confirm</label>
+        <input type="number" min="10" max="10800" step="10" id="node-config-input-confirm" placeholder="Time in seconds to message will be resent before it is confirmed.">
     </div>
     <div class="form-row">
         <label for="node-config-input-answer"><i class="fa fa-commenting-o"></i> Answer</label>
@@ -247,6 +253,9 @@
             }},
             expire: {value: null, required: false, validate: function(v){
                 return (v >= 60 && v <= 10800) || (v === '');
+            }},
+            confirm: {value: null, required: false, validate: function(v){
+                return (v >= 10 && v <= 10800) || (v === '');
             }},
             answer: {value: null, required: false, validate: function(v){
                 return (v >= 0 && v <= 1) || (v === '');
@@ -349,6 +358,9 @@
             <dd> the title of the notification</dd>
 
             <dt class="optional">expire<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+            
+            <dt class="optional">confirm<span class="property-type">number</span></dt>
             <dd> the title of the notification</dd>
 
             <dt class="optional">answer<span class="property-type">number</span></dt>
