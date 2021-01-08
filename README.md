@@ -33,6 +33,7 @@ Or use the palette manager inside of Node-RED
 - `msg.timetolive` (number): Specifies how long a message should be kept in the client APP until it is automatically deleted, [see description](https://www.pushsafer.com/pushapi_ext#API-L)
 - `msg.retry` (number): With the retry / resend parameter, a message will be resent after a certain time, [see description](https://www.pushsafer.com/pushapi_ext#API-RE)
 - `msg.expire` (number): The expire parameter stops resending push-notifications after a specified time, [see description](https://www.pushsafer.com/pushapi_ext#API-EX)
+- `msg.confirm` (number): The confirm parameter resending push-notifications until it was confirmed, [see description](https://www.pushsafer.com/pushapi_ext#API-CR)
 - `msg.answer` (number): To respond to push notifications, pass the parameter with the value 1, [see description](https://www.pushsafer.com/pushapi_ext#API-A)
 - `msg.url` (string): This URL can be opened directly from the push notification or from the client-app, [see description](https://www.pushsafer.com/pushapi_ext#API-U)
 - `msg.urltitle` (string): Can set the title of the url, [see description](https://www.pushsafer.com/pushapi_ext#API-UT)
