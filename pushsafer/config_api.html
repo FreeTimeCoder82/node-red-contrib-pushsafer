@@ -1,4 +1,3 @@
-<!--Type definition node for the api key-->
 <script type="text/x-red" data-template-name="pushsafer-config-api">
     <div class="form-row">
         <label for="node-config-input-apikey"><i class="fa fa-key"></i> <span data-i18n="pushsafer.config_api.apiKey"></span></label>
@@ -8,7 +7,6 @@
         <label for="node-config-input-username"><i class="fa fa-user"></i> <span data-i18n="pushsafer.config_api.username"></span></label>
         <input type="text" id="node-config-input-username">
     </div>
-    <br/>
     <div class="form-row">
         <label for="node-config-input-check"><i class="fa fa-question"></i> <span data-i18n="pushsafer.config_api.check"></span></label>
         <div style="display: inline-block; position: relative; width: 70%; height: 20px;">
@@ -24,18 +22,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="pushsafer-config-api">
-    <p>Configures the API config of Pushsafer</p>
-    <dl class="message-properties">
-        <dt>API-Key<span class="property-type">string</span></dt>
-        <dd>Your private or alias key is required for authentication each time a push notification is sent.<br/>
-            You can find it in your Pushsafer dashboard.<br/>
-            Alias Key, you can set and use with predefined parameters.</dd>
-        <dt>Username<span class="property-type">string</span></dt>
-        <dd>Your login username is required for getting device information and API key check.</dd>
-    </dl>
-</script>
-
 <script type="text/javascript">
     RED.nodes.registerType('pushsafer-config-api', {
         category: 'config',
@@ -46,14 +32,14 @@
             apikey: {
                 type: 'text',
                 required: true,
-                validate: function(v) {
+                validate: (v) => {
                     return String(v).length === 20 ? true : false;
                 }
             },
             username: {
                 type: 'text',
                 required: true,
-                validate: function(v) {
+                validate: (v) => {
                     return String(v).length <= 255 ? true : false;
                 }
             }
@@ -62,45 +48,70 @@
             return this.name || this._('pushsafer.config_api.nodeName');
         },
         oneditprepare: function() {
-            let node = this;
-
-            let elementNodeConfigInputCheck = $('#node-config-input-check');
+            const node = this;
+            const elementNodeConfigInputCheck = $('#node-config-input-check');
             let elementNodeConfigInputCheckIcon = $('#node-config-input-check-icon');
-            let timeoutId = null;
+            let timeoutId = null;            
 
-            elementNodeConfigInputCheck.on('click', function() {
+            const setPendingRequestButton = () => {
+                elementNodeConfigInputCheck.text(node._('pushsafer.config_api.requestServer'));
+                elementNodeConfigInputCheck.css({ 'background-color': 'rgba(0,0,255,0.2)' });
+                elementNodeConfigInputCheckIcon.remove();
+            }
+
+            const setValidRequestButton = () => {
+                elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonValid'));
+                elementNodeConfigInputCheck.css({ 'background-color': 'rgba(0,255,0,0.2)' });
+                elementNodeConfigInputCheck.append('<i id="node-config-input-check-icon" class="fa fa-check"></i>');
+                elementNodeConfigInputCheckIcon = $('#node-config-input-check-icon');
+            }
+
+            const setInvalidRequestButton = () => {
+                elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonInvalid'));
+                elementNodeConfigInputCheck.css({ 'background-color': 'rgba(255,0,0,0.2)' });
+                elementNodeConfigInputCheck.append('<i id="node-config-input-check-icon" class="fa fa-exclamation"></i>');
+                elementNodeConfigInputCheckIcon = $('#node-config-input-check-icon');
+            }
+
+            const setDefaultRequestButton = () => {
+                elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonStandard'));
+                elementNodeConfigInputCheck.css({ 'background-color': '' });
+                elementNodeConfigInputCheckIcon.remove();
+            }
+
+            elementNodeConfigInputCheck.on('click', () => {
+                setPendingRequestButton();
+                
                 if (timeoutId) {
                     clearTimeout(timeoutId);
                     timeoutId = null;
                 }
-                elementNodeConfigInputCheck.text(node._('pushsafer.config_api.requestServer'));
-                elementNodeConfigInputCheckIcon.remove();
-                let apiKey = $('#node-config-input-apikey').val();
-                let username = $('#node-config-input-username').val();
 
-                $.getJSON('pushsafer/checkConfigApi', { k: apiKey, u: username })
-                    .done(function(result) {
-                        if (result.status === 1) {
-                            elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonValid'));
-                            elementNodeConfigInputCheck.css({ 'background-color': 'rgba(0,255,0,0.2)' });
-                            elementNodeConfigInputCheck.append('<i id="node-config-input-check-icon" class="fa fa-check"></i>');
-                        } else {
-                            elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonInvalid'));
-                            elementNodeConfigInputCheck.css({ 'background-color': 'rgba(255,0,0,0.2)' });
-                            elementNodeConfigInputCheck.append('<i id="node-config-input-check-icon" class="fa fa-exclamation"></i>');
-                        }
-                        elementNodeConfigInputCheckIcon = $('#node-config-input-check-icon');
+                const apiKey = $('#node-config-input-apikey').val();
+                const username = $('#node-config-input-username').val();
+                
+                fetch('pushsafer/checkconfigapi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ k: apiKey, u: username }),
+                    }
+                )
+                .then((response) => response.json())
+                .then((response) => {
+                    const parsedResponse = JSON.parse(response);
+                    parsedResponse.status === 1 ? setValidRequestButton() : setInvalidRequestButton();
 
-                        timeoutId = setTimeout(function() {
-                            elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonStandard'));
-                            elementNodeConfigInputCheck.css({ 'background-color': '' });
-                            elementNodeConfigInputCheckIcon.remove();
-                            timeoutId = null;
-                        }, 5000);
-                    })
-                    .fail(function() {
-                        RED.notify('Request failed! Please retry.', 'error');
-                    });
+                    timeoutId = setTimeout(() => {
+                        setDefaultRequestButton();
+                        timeoutId = null;
+                    }, 5000);
+                })
+                .catch((error) => {
+                    setDefaultRequestButton();
+                    RED.notify(node._('pushsafer.config_api.requestFailed'), 'error');
+                });
             });
         }
     });

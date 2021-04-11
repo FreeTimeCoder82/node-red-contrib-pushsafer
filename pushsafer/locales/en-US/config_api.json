@@ -9,7 +9,8 @@
             "checkButtonStandard": "Click to check API-Key & Username",
             "checkButtonValid": "API-Key and Username are valid ",
             "checkButtonInvalid": "API-Key or Username is invalid ",
-            "requestServer": "Sending request to pushsafer server..."            
+            "requestServer": "Sending request to Pushsafer server...",
+            "requestFailed": "Request failed!"            
         }
     }
 }

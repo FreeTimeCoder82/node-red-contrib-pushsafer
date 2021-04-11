@@ -1,8 +1,11 @@
-<!--Type definition node for the notification template-->
 <script type="text/x-red" data-template-name="pushsafer-config-template">
     <div class="form-row">
         <label for="node-config-input-title"><i class="fa fa-header"></i> Title</label>
         <input type="text" id="node-config-input-title" placeholder="Title of the push-notification, max. 255 characters">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-message"><i class="fa fa-envelope-o"></i> Message</label>
+        <input type="text" id="node-config-input-message" placeholder="Message of the push-notification, max. 255 characters">
     </div>    
     <div class="form-row">
         <label for="node-config-input-icon"><i class="fa fa-file-image-o"></i> Icon</label>
@@ -132,12 +135,27 @@
         <input type="text" id="node-config-input-image" placeholder="URL or local path to the image">
     </div>
     <div class="form-row">
+        <label for="node-config-input-image-use-payload">&nbsp;</label>
+        <input type="checkbox" id="node-config-input-image-use-payload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
+        <span>Use msg.payload as image</span>
+    </div>
+    <div class="form-row">
         <label for="node-config-input-image2"><i class="fa fa-picture-o"></i> Image 2</label>
         <input type="text" id="node-config-input-image2" placeholder="URL or local path to the image">
     </div>
     <div class="form-row">
+        <label for="node-config-input-image2-use-payload">&nbsp;</label>
+        <input type="checkbox" id="node-config-input-image2-use-payload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
+        <span>Use msg.payload as image 2</span>
+    </div>
+    <div class="form-row">
         <label for="node-config-input-image3"><i class="fa fa-picture-o"></i> Image 3</label>
         <input type="text" id="node-config-input-image3" placeholder="URL or local path to the image">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-image3-use-payload">&nbsp;</label>
+        <input type="checkbox" id="node-config-input3-image-use-payload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
+        <span>Use msg.payload as image 3</span>
     </div>
     <div class="form-row">
         <label for="node-config-input-imagesize"><i class="fa fa-picture-o"></i> Image Size</label>
@@ -149,6 +167,14 @@
             <option value="3">256px</option>
         </select>
     </div>
+    <div class="form-row">
+        <label for="node-config-input-giphy"><i class="fa fa-picture-o"></i> GIPHY GIF</label>
+        <input type="text" id="node-config-input-giphy" placeholder="GIPHY GIF code">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-confirm"><i class="fa fa-picture-o"></i> Confirm / Resend</label>
+        <input type="text" id="node-config-input-confirm" placeholder="">
+    </div>
     <br/>
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
@@ -156,52 +182,39 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="pushsafer-config-template">
-    <p>Configures a template for push-notifications</p>
-
-    <ol id="pushsafer-template-icon-list">
-        <div id="pushsafer-icon-list-left" style="float:left">
-        </div>
-        <div id="pushsafer-icon-list-middle" style="float:left; margin-left: 60px">
-        </div>
-        <div id="pushsafer-icon-list-right" style="float:left; margin-left: 60px">
-        </div>
-    </ol>
-</script>
-
 <script type="text/javascript">
     RED.nodes.registerType('pushsafer-config-template',{
         category: 'config',
         defaults: {
             name: {value: ''},
-            title: {value: null, required: false, validate: function(v){
+            title: {value: null, required: false, validate: (v) => {
                 return String(v).length <= 255;
             }},
-            icon: {value: null, required: false, validate: function(v){
+            icon: {value: null, required: false, validate: (v) => {
                 return (v >= 1 && v <= 177) || (v === '');
             }},
-            iconcolor: {value: null, required: false, validate: function(v){
+            iconcolor: {value: null, required: false, validate: (v) => {
                 return /^#[0-9A-F]{6}$/i.test(v);
             }},
-            sound: {value: null, required: false, validate: function(v){
+            sound: {value: null, required: false, validate: (v) => {
                 return (v >= 0 && v <= 60) || (v === '');
             }}, 
-            vibration: {value: null, required: false, validate: function(v){
+            vibration: {value: null, required: false, validate: (v) => {
                 return (v >= 1 && v <= 3) || (v === '');
             }}, 
-            priority: {value: null, required: false, validate: function(v){
+            priority: {value: null, required: false, validate: (v) => {
                 return (v >= -2 && v <= 2) || (v === '');
             }},
-            timetolive: {value: null, required: false, validate: function(v){
+            timetolive: {value: null, required: false, validate: (v) => {
                 return (v >= 0 && v <= 43200) || (v === '');
             }},
-            retry: {value: null, required: false, validate: function(v){
+            retry: {value: null, required: false, validate: (v) => {
                 return (v >= 60 && v <= 10800) || (v === '');
             }},
-            expire: {value: null, required: false, validate: function(v){
+            expire: {value: null, required: false, validate: (v) => {
                 return (v >= 60 && v <= 10800) || (v === '');
             }},
-            answer: {value: null, required: false, validate: function(v){
+            answer: {value: null, required: false, validate: (v) => {
                 return (v >= 0 && v <= 1) || (v === '');
             }},
             url: {value: null, required: false},
@@ -209,29 +222,39 @@
             image: {value: null, required: false}, 
             image2: {value: null, required: false}, 
             image3: {value: null, required: false},
-            imagesize: {value: null, required: false, validate: function(v){
+            imagesize: {value: null, required: false, validate: (v) => {
                 return (v >= 0 && v <= 3) || (v === '');
+            }},
+            giphy: {value: null, required: false, validate: (v) => {
+                return String(v).length <= 255;
+            }},
+            confirm: {value: null, required: false, validate: (v) => {
+                return (v >= 10 && v <= 10800) || (v === '');
             }}
         },
         label: function() {
             return this.name || 'PushSafer Notification Template Name';
         },
-        oneditprepare: function(){
-            setTimeout(function(){
+        oneditprepare: function(){            
+
+            setTimeout(() => {
+                const updateIconNumber = (iconNumber) => {
+                    $('#node-config-input-icon').val(iconNumber);
+                    $('#pushsafer-template-icon-list').hide();
+                }
+
                 for (let i=1; i<=60; i++){
-                    $('#pushsafer-icon-list-left').append('<li><img src="https://www.pushsafer.com/assets/icons/' + i + '.jpg" width="32" height="32"></li>');
-                    $('#pushsafer-icon-list-middle').append('<li><img src="https://www.pushsafer.com/assets/icons/' + (i + 60) + '.jpg" width="32" height="32"></li>');
+                    updateIconNumber(i);
+                    $('#pushsafer-icon-list-left').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i}.jpg" width="32" height="32" style="cursor:pointer" onclick="updateIconNumber(${i})"></li>`);
+                    $('#pushsafer-icon-list-middle').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i+60}.jpg" width="32" height="32" style="cursor:pointer" onclick="updateIconNumber(${i+60})"></li>`);
                     if (i+120 <= 177)
-                        $('#pushsafer-icon-list-right').append('<li><img src="https://www.pushsafer.com/assets/icons/' + (i + 120) + '.jpg" width="32" height="32"></li>');
+                        $('#pushsafer-icon-list-right').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i+120}.jpg" width="32" height="32" style="cursor:pointer" onclick="updateIconNumber(${i+120})"></li>`);
                 }    
                 $('#pushsafer-template-icon-list').hide();
-                $('#node-config-input-icon').focusin(function(){
-                    $('#pushsafer-template-icon-list').show();
-                });
-                $('#node-config-input-icon').focusout(function(){
-                    $('#pushsafer-template-icon-list').hide();
-                });
+                $('#node-config-input-icon').focusin(() => $('#pushsafer-template-icon-list').show());
+                $('#node-config-input-icon').focusout(() => setTimeout(() => $('#pushsafer-template-icon-list').hide(), 250));
             }, 250);
+            
         }        
-    });
+    });    
 </script>

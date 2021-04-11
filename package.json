@@ -3,10 +3,9 @@
     "version": "2.0.0",
     "description": "A Pushsafer API wrapper for Node-RED",
     "dependencies": {
-        "node-base64-image": "^1.0.6"
+        "node-base64-image": "^2.0.3"
     },
-    "devDependencies": {
-    },
+    "devDependencies": {},
     "repository": {
         "type": "git",
         "url": "https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer.git"
