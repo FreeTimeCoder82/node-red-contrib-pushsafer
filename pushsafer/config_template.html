@@ -79,7 +79,9 @@
             <option value="57">The Window is open</option>
             <option value="58">The Light is off</option>
             <option value="59">The Light is on</option>
-            <option value="60">The Doorbell rings</option>	
+            <option value="60">The Doorbell rings</option>
+            <option value="61">Pager short</option>
+            <option value="62">Pager long</option>	
         </select>
     </div>
     <div class="form-row">
@@ -236,12 +238,9 @@
             return this.name || 'PushSafer Notification Template Name';
         },
         oneditprepare: function(){            
-
+            
             setTimeout(() => {
-                const updateIconNumber = (iconNumber) => {
-                    $('#node-config-input-icon').val(iconNumber);
-                    $('#pushsafer-template-icon-list').hide();
-                }
+                
 
                 for (let i=1; i<=60; i++){
                     updateIconNumber(i);
@@ -256,5 +255,9 @@
             }, 250);
             
         }        
-    });    
+    });   
+    const updateIconNumber = (iconNumber) => {
+                    $('#node-config-input-icon').val(iconNumber);
+                    $('#pushsafer-template-icon-list').hide();
+                } 
 </script>
