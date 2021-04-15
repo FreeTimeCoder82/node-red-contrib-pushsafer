@@ -1,35 +1,38 @@
 {
-    "name": "node-red-contrib-pushsafer",
-    "version": "2.0.0",
-    "description": "A Pushsafer API wrapper for Node-RED",
-    "dependencies": {
-        "node-base64-image": "^2.0.3"
-    },
-    "devDependencies": {},
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer.git"
-    },
-    "license": "MIT",
-    "keywords": [
-        "node-red",
-        "pushsafer",
-        "notification",
-        "push notification",
-        "SmartHome",
-        "Internet of Things",
-        "IoT"
-    ],
-    "node-red": {
-        "nodes": {
-            "pushsafer_config_api": "pushsafer/config_api.js",
-            "pushsafer_config_devices": "pushsafer/config_devices.js",
-            "pushsafer_config_template": "pushsafer/config_template.js",
-            "pushsafer_message": "pushsafer/message.js",
-            "pushsafer_read": "pushsafer/read.js"
-        }
-    },
-    "author": {
-        "name": "Oliver 'FreeTimeCoder82' Tries <freetimecoder82@outlook.com>"
+  "name": "node-red-contrib-pushsafer",
+  "version": "2.0.0",
+  "description": "A Pushsafer API wrapper for Node-RED",
+  "dependencies": {
+    "node-base64-image": "^2.0.3"
+  },
+  "devDependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node-red",
+    "pushsafer",
+    "notification",
+    "push notification",
+    "SmartHome",
+    "Internet of Things",
+    "IoT"
+  ],
+  "node-red": {
+    "nodes": {
+      "pushsafer_config_api": "pushsafer/config_api.js",
+      "pushsafer_config_devices": "pushsafer/config_devices.js",
+      "pushsafer_config_template": "pushsafer/config_template.js",
+      "pushsafer_message": "pushsafer/message.js",
+      "pushsafer_read": "pushsafer/read.js"
     }
+  },
+  "author": {
+    "name": "Oliver Tries </FreeTimeCoder>",
+    "email": "support@freetimecoder.dev",
+    "url": "https://freetimecoder.dev"
+  }
 }

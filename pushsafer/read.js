@@ -2,17 +2,18 @@
 const psHelper = require('./helper');
 
 module.exports = function (RED) {
-  function nodeRead(config) {
+  RED.nodes.registerType('pushsafer_read', function (config) {
     RED.nodes.createNode(this, config);
 
     const node = this;
 
+    //Get credentials and config nodes
     node.configApi = RED.nodes.getCredentials(config.configApi);
     node.configDevices = RED.nodes.getNode(config.configDevices);
 
-    let configApiOk = psHelper.checkConfigApi(node);
+    const configApiOk = psHelper.checkConfigApi(node);
 
-    async function onInput(msg, send, done) {
+    node.on('input', async function (msg, send, done) {
       // For maximum backwards compatibility, check that send exists.
       // If this node is installed in Node-RED 0.x, it will need to
       // fallback to using `node.send`
@@ -34,21 +35,20 @@ module.exports = function (RED) {
       };
 
       // Set status of the node -> send request
-      node.status({ fill: 'yellow', shape: 'dot', text: 'send request' });
+      psHelper.setNodeStatus(node, 'yellow', 'dot', 'send request', 5000);
 
       psHelper
-        .sendRequest(message, psHelper.api_urls.read_api)
+        .sendRequest(message, psHelper.ApiEndpoints.read_api)
         .then((response) => {
           // Parse and check the result string
-          let parsedResponse = psHelper.checkAndParseResponse(response, node);
+          let parsedResponse = psHelper.checkAndParseResponse(node, response);
 
           psHelper.removeElementFromObject(parsedResponse, 'status');
           // Return the response
           send({ payload: { ...{ device: message.d }, ...parsedResponse }, topic: 'fromPushsaferReadNode' });
         })
         .catch((error) => {
-          node.status({ fill: 'red', shape: 'dot', text: 'send failed' });
-          psHelper.resetNodeStatus(node, 5000);
+          psHelper.setNodeStatus(node, 'red', 'dot', 'send failed', 5000);
           node.error('pushsafer error: ' + error);
         })
         .finally(() => {
@@ -56,11 +56,9 @@ module.exports = function (RED) {
             done();
           }
         });
-    }
+    });
 
-    this.on('input', onInput);
-
-    this.on('close', (removed, done) => {
+    node.on('close', (removed, done) => {
       if (removed) {
         // This node has been removed, do something
       } else {
@@ -71,6 +69,5 @@ module.exports = function (RED) {
         done();
       }
     });
-  }
-  RED.nodes.registerType('pushsafer_read', nodeRead);
+  });
 };

@@ -1,100 +1,103 @@
 <!--Type definition node for the notification template-->
 <script type="text/x-red" data-template-name="pushsafer-config-devices">
-    <div class="form-row">
-        <label for="node-config-input-configApi"><i class="fa fa-key"></i> API</label>
-        <input type="text" id="node-config-input-configApi">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-devices"><i class="fa fa-tablet"></i> <span data-i18n="pushsafer.config_devices.devices"></span></label>
-        <div style="display: inline-block; position: relative; width: 70%; height: 20px;">
-            <div style="position: absolute; left: 0px; right: 40px;">
-                <input type="text" id="node-config-input-devices" placeholder="Device or device group" style="width: 100%"/>
-            </div>
-            <a id="node-config-input-scan-devices" class="editor-button" style="position: absolute; right: 0px; top: 0px;">
-                <i class="fa fa-search"></i>
-            </a>
-        </div>
-    </div>
-    <br/>
-    <div class="form-row">
-        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-config-input-name" placeholder="PushSafer Notification Template Name">
-    </div>
+  <div class="form-row">
+      <label for="node-config-input-configApi"><i class="fa fa-key"></i> API</label>
+      <input type="text" id="node-config-input-configApi">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-devices"><i class="fa fa-tablet"></i> <span data-i18n="pushsafer.config_devices.devices"></span></label>
+      <div style="display: inline-block; position: relative; width: 70%; height: 20px;">
+          <div style="position: absolute; left: 0px; right: 40px;">
+              <input type="text" id="node-config-input-devices" placeholder="Device or device group" style="width: 100%"/>
+          </div>
+          <a id="node-config-input-scan-devices" class="editor-button" style="position: absolute; right: 0px; top: 0px;">
+              <i class="fa fa-search"></i>
+          </a>
+      </div>
+  </div>
+  <br/>
+  <div class="form-row">
+      <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-config-input-name" placeholder="PushSafer Notification Template Name">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="pushsafer-config-devices">
-    <p>Configures a template for devices</p>
+  <p>Configures a template for devices</p>
 
-    <dl class="message-properties">
-        <dt>Devices<span class="property-type">string</span></dt>
-        <dd>Devices or device groups the message is sent to</dd>
-    </dl>
+  <dl class="message-properties">
+      <dt>Devices<span class="property-type">string</span></dt>
+      <dd>Devices or device groups the message is sent to</dd>
+  </dl>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('pushsafer-config-devices', {
-        category: 'config',
-        defaults: {
-            name: {value: ''},
-            configApi: {type: 'pushsafer-config-api', required: false},
-            devices: {value: null, required: false, validate: (v) => {
-                return String(v).length <= 255;
-            }}
+  RED.nodes.registerType('pushsafer-config-devices', {
+    category: 'config',
+    defaults: {
+      name: { value: '' },
+      configApi: { type: 'pushsafer-config-api', required: false },
+      devices: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return String(v).length <= 255;
         },
-        label: function() {
-            return this.name || 'PushSafer Config Devices';
-        },
-        oneditprepare: function() {
-            const node = this;
-        
-            const manualDevices = () => {
-                const currentDevice = $('#node-config-input-devices').val();
-                $('#node-config-input-devices').replaceWith('<input type="text" id="node-config-input-devices" style="width: 100%"/>');
-                $('#node-config-input-devices').val(currentDevice);
+      },
+    },
+    label: function () {
+      return this.name || 'PushSafer Config Devices';
+    },
+    oneditprepare: function () {
+      const node = this;
+
+      const manualDevices = () => {
+        const currentDevice = $('#node-config-input-devices').val();
+        $('#node-config-input-devices').replaceWith('<input type="text" id="node-config-input-devices" style="width: 100%"/>');
+        $('#node-config-input-devices').val(currentDevice);
+      };
+
+      const searchAndSelectDevices = () => {
+        let selectedApiKey = $('#node-config-input-configApi').val();
+
+        fetch('pushsafer/getdevices', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ nodeid: selectedApiKey }),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            const parsedResponse = JSON.parse(response);
+
+            if (Object.keys(parsedResponse.devices).length <= 0) {
+              RED.notify(node._('pushsafer.config_devices.warningNoDevicesFound'), 'warn');
             }
 
-            const searchAndSelectDevices = () => {
-                let selectedApiKey = $('#node-config-input-configApi').val();
-                
-                fetch('pushsafer/getdevices', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ nodeid: selectedApiKey }),
-                    }
-                )
-                .then((response) => response.json())
-                .then((response) => {
-                    const parsedResponse = JSON.parse(response);
-                    
-                    if (Object.keys(parsedResponse.devices).length <= 0) {
-                        RED.notify(node._('pushsafer.config_devices.warningNoDevicesFound'), "warn");
-                    }
+            const currentDevice = $('#node-config-input-devices').val();
+            $('#node-config-input-devices').replaceWith('<select id="node-config-input-devices" style="width: 100%"></select>');
+            $('#node-config-input-devices').append('<option selected="selected" value="null">getting devices…</option>');
 
-                    const currentDevice = $('#node-config-input-devices').val();
-                    $('#node-config-input-devices').replaceWith('<select id="node-config-input-devices" style="width: 100%"></select>');
-                    $('#node-config-input-devices').append('<option selected="selected" value="null">getting devices…</option>');
+            $('#node-config-input-devices').empty();
 
-                    $('#node-config-input-devices').empty();
-
-                    for (let device in parsedResponse.devices) {
-                        $('#node-config-input-devices').append(`<option value="${device}">${parsedResponse.devices[device]}</option>`);
-                    };
-
-                    $('#node-config-input-devices').val(currentDevice);
-                })
-                .catch((error) => {
-                    RED.notify('Request failed! Is the API Key stored on the server? Please retry.', 'error');
-                    manualDevices();
-                });
+            for (let device in parsedResponse.devices) {
+              $('#node-config-input-devices').append(`<option value="${device}">${parsedResponse.devices[device]}</option>`);
             }
 
-            $('#node-config-input-scan-devices').click(() => {
-                searchAndSelectDevices();
-            });
+            $('#node-config-input-devices').val(currentDevice);
+          })
+          .catch((error) => {
+            RED.notify('Request failed! Is the API Key stored on the server? Please retry.', 'error');
+            manualDevices();
+          });
+      };
 
-            searchAndSelectDevices();
-        }       
-    });
+      $('#node-config-input-scan-devices').click(() => {
+        searchAndSelectDevices();
+      });
+
+      searchAndSelectDevices();
+    },
+  });
 </script>

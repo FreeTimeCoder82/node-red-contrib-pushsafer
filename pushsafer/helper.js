@@ -2,38 +2,54 @@
 const https = require('https');
 const querystring = require('querystring');
 const base64 = require('node-base64-image');
-const { promisify } = require('util');
-const base64encoder = promisify(base64.encode);
 
-const api_url = 'pushsafer.com';
-const api_urls = {
+const ApiUrl = 'pushsafer.com';
+const ApiEndpoints = {
     message_api: '/api',
     read_api: '/api-m',
     device_api: '/api-d',
     key_api: '/api-k'
 }
 
+const StatusShape = {
+    Dot: 'dot',
+    Ring: 'ring'
+}
+
+const StatusFill = {
+    Red: 'red',
+    Green: 'green',
+    Yellow: 'yellow',
+    Blue: 'blue',
+    Grey: 'grey'
+}
+
+const StatusType = {
+    Debug: 'grey',
+    Info: 'blue',
+    Warn: 'yellow',
+    Error: 'red',
+    Ok: 'green'
+}
+
 const checkConfigApi = (node) => {
     // Check if there is a valid api config object
     if (!node.configApi) {
-        node.status({ fill: 'red', shape: 'dot', text: 'No valid api config object found' });
-        resetNodeStatus(node, 5000);
+        setNodeStatus(node, 'red', 'dot', 'No valid api config object found', 5000);
         node.error('No valid api config object found');
         return false;
     }
 
     // Check if there is a valid api key
     if (!node.configApi.apikey || node.configApi.apikey.length !== 20) {
-        node.status({ fill: 'red', shape: 'dot', text: 'No valid api key found' });
-        resetNodeStatus(node, 5000);
+        setNodeStatus(node, 'red', 'dot', 'No valid api key found', 5000);
         node.error('No valid api key found');
         return false;
     }
 
     // Check if there is a valid username
     if (!node.configApi.username) {
-        node.status({ fill: 'red', shape: 'dot', text: 'No valid username found' });
-        resetNodeStatus(node, 5000);
+        setNodeStatus(node, 'red', 'dot', 'No valid username found', 5000);
         node.error('No valid username found');
         return false;
     }
@@ -45,8 +61,7 @@ const checkAndParseMessagePayload = (msg, node) => {
     // Check if there is a valid payload
     if (!msg.payload) {
         if (node) {
-            node.status({ fill: 'red', shape: 'dot', text: 'Message object has no payload' });
-            resetNodeStatus(node, 5000);
+            setNodeStatus(node, 'red', 'dot', 'Message object has no payload', 5000);
             node.error('Message object has no payload');
         }
         return false;
@@ -70,7 +85,7 @@ const checkAndParseIncomingReadPayload = (msg, node) => {
     return true;
 }
 
-const checkAndParseResponse = (response, node) => {
+const checkAndParseResponse = (node, response) => {
     // Parse the result string into an object
     let parsedResponse = JSON.parse(response);
 
@@ -78,14 +93,12 @@ const checkAndParseResponse = (response, node) => {
         // Depending on the response status update the status of the node -> successful or failed
         switch (parsedResponse.status) {
             case 0:
-                node.status({ fill: 'red', shape: 'dot', text: 'failed' });
+                setNodeStatus(node, 'red', 'dot', 'failed', 5000);
                 break;
             case 1:
-                node.status({ fill: 'green', shape: 'dot', text: 'successful' });
+                setNodeStatus(node, 'green', 'dot', 'successful', 5000);
                 break;
         }
-        // Start a timeout to reset the status of the node
-        resetNodeStatus(node, 5000);
     }
 
     return parsedResponse;
@@ -95,32 +108,38 @@ const removeElementFromObject = (object, objectName) => {
     delete object[objectName];
 }
 
-const setNodeStatus = (node, timeout) => {
-    // Start a timeout to reset the status of the node
-    setTimeout(function() {
-        node.status({});
-    }, timeout);
+const removeAllUnusedElements = (object) => {
+    for (let element in object) {
+        if (!object[element]) {
+          removeElementFromObject(object, element);
+        }
+      }
 }
 
-const resetNodeStatus = (node, timeout) => {
-    // Start a timeout to reset the status of the node
-    setTimeout(function() {
-        node.status({});
-    }, timeout);
+const setNodeStatus = (node, fill, shape, text, timeout) => {
+    node.status({ fill, shape, text });
+    if(timeout && timeout > 0){
+        setTimeout(()=>{
+            clearNodeStatus(node);
+        }, timeout);
+    }
+}
+
+const clearNodeStatus = (node) => {
+    node.status({});
 }
 
 const getAndParseImage = async (imagePath, node) => {
     if (!imagePath) return null;
-
     const hasProtocol = imagePath.match(/^(\w+:\/\/)/gim);
     const extension = imagePath.slice(((imagePath.lastIndexOf('.') - 1) >>> 0) + 2);
     const options = { string: true, local: !hasProtocol };
-    const base64image = await base64encoder(imagePath, options).catch((error) => {
+    const base64DataUri = await base64.encode(imagePath, {}).catch((error) => {
         node.warn('image could not be parsed to base64, may be file does not exist');
         resetNodeStatus(node, 5000);
         return null;
     });
-    return `data:image/${extension};base64,${base64image}`; 
+    return `data:image/${extension};base64,${base64DataUri}`; 
 }
 
 const sendRequest = (msg, api_path) => {
@@ -129,7 +148,7 @@ const sendRequest = (msg, api_path) => {
     let resData = '';
 
     const options = {
-        hostname: api_url,
+        hostname: ApiUrl,
         path: api_path,
         method: 'POST',
         headers: {
@@ -159,13 +178,15 @@ const sendRequest = (msg, api_path) => {
 }
 
 module.exports = {
-    api_urls,
+    ApiEndpoints,
     checkConfigApi,
     checkAndParseMessagePayload,
     checkAndParseIncomingReadPayload,
     checkAndParseResponse,
     removeElementFromObject,
-    resetNodeStatus,
+    removeAllUnusedElements,
+    setNodeStatus,
+    clearNodeStatus,
     getAndParseImage,
     sendRequest
 }

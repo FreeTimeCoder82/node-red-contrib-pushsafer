@@ -1,263 +1,326 @@
 <script type="text/x-red" data-template-name="pushsafer-config-template">
-    <div class="form-row">
-        <label for="node-config-input-title"><i class="fa fa-header"></i> Title</label>
-        <input type="text" id="node-config-input-title" placeholder="Title of the push-notification, max. 255 characters">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-message"><i class="fa fa-envelope-o"></i> Message</label>
-        <input type="text" id="node-config-input-message" placeholder="Message of the push-notification, max. 255 characters">
-    </div>    
-    <div class="form-row">
-        <label for="node-config-input-icon"><i class="fa fa-file-image-o"></i> Icon</label>
-        <input type="number" min="1" max="177" id="node-config-input-icon" placeholder="Icon of the push-notification">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon color</label>
-        <input type="color" value="#FFFFFF" id="node-config-input-iconcolor" class="series-color">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-sound"><i class="fa fa-volume-up"></i> Sound</label>
-        <select id="node-config-input-sound" style="width:70%">
-            <option value></option>
-            <option value="0">Silent</option>
-            <option value="1">Ahem (IM)</option>
-            <option value="2">Applause (Mail)</option>
-            <option value="3">Arrow (Reminder)</option>
-            <option value="4">Baby (SMS)</option>
-            <option value="5">Bell (Alarm)</option>
-            <option value="6">Bicycle (Alarm2)</option>
-            <option value="7">Boing (Alarm3)</option>
-            <option value="8">Buzzer (Alarm4)</option>
-            <option value="9">Camera (Alarm5)</option>
-            <option value="10">Car Horn (Alarm6)</option>
-            <option value="11">Cash Register (Alarm7)</option>
-            <option value="12">Chime (Alarm8)</option>
-            <option value="13">Creaky Door (Alarm9)</option>
-            <option value="14">Cuckoo Clock (Alarm10)</option>
-            <option value="15">Disconnect (Call)</option>
-            <option value="16">Dog (Call2)</option>
-            <option value="17">Doorbell (Call3)</option>
-            <option value="18">Fanfare (Call4)</option>
-            <option value="19">Gun Shot (Call5)</option>
-            <option value="20">Honk (Call6)</option>
-            <option value="21">Jaw Harp (Call7)</option>
-            <option value="22">Morse (Call8)</option>
-            <option value="23">Electricity (Call9)</option>
-            <option value="24">Radio Tuner (Call10)</option>
-            <option value="25">Sirens</option>
-            <option value="26">Military Trumpets</option>
-            <option value="27">Ufo</option>
-            <option value="28">Whah Whah Whah</option>
-            <option value="29">Man Saying Goodbye</option>
-            <option value="30">Man Saying Hello</option>
-            <option value="31">Man Saying No</option>
-            <option value="32">Man Saying Ok</option>
-            <option value="33">Man Saying Ooohhhweee</option>
-            <option value="34">Man Saying Warning</option>
-            <option value="35">Man Saying Welcome</option>
-            <option value="36">Man Saying Yeah</option>
-            <option value="37">Man Saying Yes</option>
-            <option value="38">Beep short</option>
-            <option value="39">Weeeee short</option>
-            <option value="40">Cut in and out short</option>
-            <option value="41">Finger flicking glas short</option>
-            <option value="42">Wa Wa Waaaa short</option>
-            <option value="43">Laser short</option>
-            <option value="44">Wind Chime short</option>
-            <option value="45">Echo short</option>
-            <option value="46">Zipper short</option>
-            <option value="47">HiHat short</option>
-            <option value="48">Beep 2 short</option>
-            <option value="49">Beep 3 short</option>
-            <option value="50">Beep 4 short</option>
-            <option value="51">The Alarm is armed</option>
-            <option value="52">The Alarm is disarmed</option>
-            <option value="53">The Backup is ready</option>
-            <option value="54">The Door is closed</option>
-            <option value="55">The Door is opend</option>
-            <option value="56">The Window is closed</option>
-            <option value="57">The Window is open</option>
-            <option value="58">The Light is off</option>
-            <option value="59">The Light is on</option>
-            <option value="60">The Doorbell rings</option>
-            <option value="61">Pager short</option>
-            <option value="62">Pager long</option>	
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-vibration"><i class="fa fa-bell"></i> Vibration</label>
-        <select id="node-config-input-vibration" style="width:70%">
-            <option value></option>
-            <option value="1">1x</option>
-            <option value="2">2x</option>
-            <option value="3">3x</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-priority"><i class="fa fa-exclamation"></i> Priority</label>
-        <select id="node-config-input-priority" style="width:70%">
-            <option value></option>
-            <option value="-2">lowest</option>
-            <option value="-1">low</option>
-            <option value="0">normal</option>
-            <option value="1">high</option>
-            <option value="2">highest</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-timetolive"><i class="fa fa-heart-o"></i> Time to live</label>
-        <input type="number" min="0" max="43200" step="1" id="node-config-input-timetolive" placeholder="Time in minutes before automatic deletion">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-retry"><i class="fa fa-repeat"></i> Retry</label>
-        <input type="number" min="60" max="10800" step="60" id="node-config-input-retry" placeholder="Time in seconds a message will be resent">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-expire"><i class="fa fa-heart"></i> Expire</label>
-        <input type="number" min="60" max="10800" step="60" id="node-config-input-expire" placeholder="Time in seconds after resending stops">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-answer"><i class="fa fa-commenting-o"></i> Answer</label>
-        <select id="node-config-input-answer" style="width:70%">
-            <option value></option>
-            <option value="0">not allowed</option>
-            <option value="1">allowed</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-url"><i class="fa fa-external-link"></i> URL</label>
-        <input type="url" id="node-config-input-url" placeholder="URL which can be opened from the push-notification">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-urltitle"><i class="fa fa-external-link"></i> URL Title</label>
-        <input type="text" id="node-config-input-urltitle" placeholder="Title for the URL">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-image"><i class="fa fa-picture-o"></i> Image</label>
-        <input type="text" id="node-config-input-image" placeholder="URL or local path to the image">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-image-use-payload">&nbsp;</label>
-        <input type="checkbox" id="node-config-input-image-use-payload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
-        <span>Use msg.payload as image</span>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-image2"><i class="fa fa-picture-o"></i> Image 2</label>
-        <input type="text" id="node-config-input-image2" placeholder="URL or local path to the image">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-image2-use-payload">&nbsp;</label>
-        <input type="checkbox" id="node-config-input-image2-use-payload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
-        <span>Use msg.payload as image 2</span>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-image3"><i class="fa fa-picture-o"></i> Image 3</label>
-        <input type="text" id="node-config-input-image3" placeholder="URL or local path to the image">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-image3-use-payload">&nbsp;</label>
-        <input type="checkbox" id="node-config-input3-image-use-payload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
-        <span>Use msg.payload as image 3</span>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-imagesize"><i class="fa fa-picture-o"></i> Image Size</label>
-        <select id="node-config-input-imagesize" style="width:70%">
-            <option value></option>
-            <option value="0">1024px</option>
-            <option value="1">768px</option>
-            <option value="2">512px</option>
-            <option value="3">256px</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-giphy"><i class="fa fa-picture-o"></i> GIPHY GIF</label>
-        <input type="text" id="node-config-input-giphy" placeholder="GIPHY GIF code">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-confirm"><i class="fa fa-picture-o"></i> Confirm / Resend</label>
-        <input type="text" id="node-config-input-confirm" placeholder="">
-    </div>
-    <br/>
-    <div class="form-row">
-        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-config-input-name" placeholder="PushSafer Notification Template Name">
-    </div>
+  <div class="form-row">
+      <label for="node-config-input-title"><i class="fa fa-header"></i> Title</label>
+      <input type="text" id="node-config-input-title" placeholder="Title of the push-notification, max. 255 characters">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-message"><i class="fa fa-envelope-o"></i> Message</label>
+      <input type="text" id="node-config-input-message" placeholder="Message of the push-notification, max. 255 characters">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-sound"><i class="fa fa-volume-up"></i> Sound</label>
+      <select id="node-config-input-sound" style="width:70%">
+          <option value></option>
+          <option value="0">Silent</option>
+          <option value="1">Ahem (IM)</option>
+          <option value="2">Applause (Mail)</option>
+          <option value="3">Arrow (Reminder)</option>
+          <option value="4">Baby (SMS)</option>
+          <option value="5">Bell (Alarm)</option>
+          <option value="6">Bicycle (Alarm2)</option>
+          <option value="7">Boing (Alarm3)</option>
+          <option value="8">Buzzer (Alarm4)</option>
+          <option value="9">Camera (Alarm5)</option>
+          <option value="10">Car Horn (Alarm6)</option>
+          <option value="11">Cash Register (Alarm7)</option>
+          <option value="12">Chime (Alarm8)</option>
+          <option value="13">Creaky Door (Alarm9)</option>
+          <option value="14">Cuckoo Clock (Alarm10)</option>
+          <option value="15">Disconnect (Call)</option>
+          <option value="16">Dog (Call2)</option>
+          <option value="17">Doorbell (Call3)</option>
+          <option value="18">Fanfare (Call4)</option>
+          <option value="19">Gun Shot (Call5)</option>
+          <option value="20">Honk (Call6)</option>
+          <option value="21">Jaw Harp (Call7)</option>
+          <option value="22">Morse (Call8)</option>
+          <option value="23">Electricity (Call9)</option>
+          <option value="24">Radio Tuner (Call10)</option>
+          <option value="25">Sirens</option>
+          <option value="26">Military Trumpets</option>
+          <option value="27">Ufo</option>
+          <option value="28">Whah Whah Whah</option>
+          <option value="29">Man Saying Goodbye</option>
+          <option value="30">Man Saying Hello</option>
+          <option value="31">Man Saying No</option>
+          <option value="32">Man Saying Ok</option>
+          <option value="33">Man Saying Ooohhhweee</option>
+          <option value="34">Man Saying Warning</option>
+          <option value="35">Man Saying Welcome</option>
+          <option value="36">Man Saying Yeah</option>
+          <option value="37">Man Saying Yes</option>
+          <option value="38">Beep short</option>
+          <option value="39">Weeeee short</option>
+          <option value="40">Cut in and out short</option>
+          <option value="41">Finger flicking glas short</option>
+          <option value="42">Wa Wa Waaaa short</option>
+          <option value="43">Laser short</option>
+          <option value="44">Wind Chime short</option>
+          <option value="45">Echo short</option>
+          <option value="46">Zipper short</option>
+          <option value="47">HiHat short</option>
+          <option value="48">Beep 2 short</option>
+          <option value="49">Beep 3 short</option>
+          <option value="50">Beep 4 short</option>
+          <option value="51">The Alarm is armed</option>
+          <option value="52">The Alarm is disarmed</option>
+          <option value="53">The Backup is ready</option>
+          <option value="54">The Door is closed</option>
+          <option value="55">The Door is opend</option>
+          <option value="56">The Window is closed</option>
+          <option value="57">The Window is open</option>
+          <option value="58">The Light is off</option>
+          <option value="59">The Light is on</option>
+          <option value="60">The Doorbell rings</option>
+          <option value="61">Pager short</option>
+          <option value="62">Pager long</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-vibration"><i class="fa fa-bell"></i> Vibration</label>
+      <select id="node-config-input-vibration" style="width:70%">
+          <option value></option>
+          <option value="1">1x</option>
+          <option value="2">2x</option>
+          <option value="3">3x</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-icon"><i class="fa fa-file-image-o"></i> Icon</label>
+      <input type="number" min="1" max="177" id="node-config-input-icon" placeholder="Icon of the push-notification">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon color</label>
+      <input type="color" value="#FFFFFF" id="node-config-input-iconcolor" class="series-color">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-url"><i class="fa fa-external-link"></i> URL</label>
+      <input type="url" id="node-config-input-url" placeholder="URL which can be opened from the push-notification">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-urltitle"><i class="fa fa-external-link"></i> URL Title</label>
+      <input type="text" id="node-config-input-urltitle" placeholder="Title for the URL">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-image"><i class="fa fa-picture-o"></i> Image</label>
+      <input type="text" id="node-config-input-image" placeholder="URL or local path to the image">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-image-use-payload">&nbsp;</label>
+      <input type="checkbox" id="node-config-input-imageusepayload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
+      <span>Use msg.payload as image</span>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-image2"><i class="fa fa-picture-o"></i> Image 2</label>
+      <input type="text" id="node-config-input-image2" placeholder="URL or local path to the image 2">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-image2-use-payload">&nbsp;</label>
+      <input type="checkbox" id="node-config-input-image2usepayload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
+      <span>Use msg.payload as image 2</span>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-image3"><i class="fa fa-picture-o"></i> Image 3</label>
+      <input type="text" id="node-config-input-image3" placeholder="URL or local path to the image 3">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-image3-use-payload">&nbsp;</label>
+      <input type="checkbox" id="node-config-input-image3usepayload" style="display:inline-block; width:15px; vertical-align:baseline;" autocomplete="off">
+      <span>Use msg.payload as image 3</span>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-imagesize"><i class="fa fa-picture-o"></i> Image Size</label>
+      <select id="node-config-input-imagesize" style="width:70%">
+          <option value></option>
+          <option value="0">1024px</option>
+          <option value="1">768px</option>
+          <option value="2">512px</option>
+          <option value="3">256px</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-timetolive"><i class="fa fa-heart-o"></i> Time to live</label>
+      <input type="number" min="0" max="43200" step="1" id="node-config-input-timetolive" placeholder="Time in minutes before automatic deletion">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-priority"><i class="fa fa-exclamation"></i> Priority</label>
+      <select id="node-config-input-priority" style="width:70%">
+          <option value></option>
+          <option value="-2">lowest</option>
+          <option value="-1">low</option>
+          <option value="0">normal</option>
+          <option value="1">high</option>
+          <option value="2">highest</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-retry"><i class="fa fa-repeat"></i> Retry</label>
+      <input type="number" min="60" max="10800" step="60" id="node-config-input-retry" placeholder="Time in seconds a message will be resent">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-expire"><i class="fa fa-heart"></i> Expire</label>
+      <input type="number" min="60" max="10800" step="60" id="node-config-input-expire" placeholder="Time in seconds after resending stops">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-answer"><i class="fa fa-commenting-o"></i> Answer</label>
+      <select id="node-config-input-answer" style="width:70%">
+          <option value></option>
+          <option value="0">not allowed</option>
+          <option value="1">allowed</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-confirm"><i class="fa fa-picture-o"></i> Confirm / Resend</label>
+      <input type="number" min="10" max="10800" step="10" id="node-config-input-confirm" placeholder="">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-giphy"><i class="fa fa-picture-o"></i> GIPHY GIF</label>
+      <input type="text" id="node-config-input-giphy" placeholder="GIPHY GIF code">
+  </div>
+  <br/>
+  <div class="form-row">
+      <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-config-input-name" placeholder="PushSafer Notification Template Name">
+  </div>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('pushsafer-config-template',{
-        category: 'config',
-        defaults: {
-            name: {value: ''},
-            title: {value: null, required: false, validate: (v) => {
-                return String(v).length <= 255;
-            }},
-            icon: {value: null, required: false, validate: (v) => {
-                return (v >= 1 && v <= 177) || (v === '');
-            }},
-            iconcolor: {value: null, required: false, validate: (v) => {
-                return /^#[0-9A-F]{6}$/i.test(v);
-            }},
-            sound: {value: null, required: false, validate: (v) => {
-                return (v >= 0 && v <= 60) || (v === '');
-            }}, 
-            vibration: {value: null, required: false, validate: (v) => {
-                return (v >= 1 && v <= 3) || (v === '');
-            }}, 
-            priority: {value: null, required: false, validate: (v) => {
-                return (v >= -2 && v <= 2) || (v === '');
-            }},
-            timetolive: {value: null, required: false, validate: (v) => {
-                return (v >= 0 && v <= 43200) || (v === '');
-            }},
-            retry: {value: null, required: false, validate: (v) => {
-                return (v >= 60 && v <= 10800) || (v === '');
-            }},
-            expire: {value: null, required: false, validate: (v) => {
-                return (v >= 60 && v <= 10800) || (v === '');
-            }},
-            answer: {value: null, required: false, validate: (v) => {
-                return (v >= 0 && v <= 1) || (v === '');
-            }},
-            url: {value: null, required: false},
-            urltitle: {value: null, required: false},            
-            image: {value: null, required: false}, 
-            image2: {value: null, required: false}, 
-            image3: {value: null, required: false},
-            imagesize: {value: null, required: false, validate: (v) => {
-                return (v >= 0 && v <= 3) || (v === '');
-            }},
-            giphy: {value: null, required: false, validate: (v) => {
-                return String(v).length <= 255;
-            }},
-            confirm: {value: null, required: false, validate: (v) => {
-                return (v >= 10 && v <= 10800) || (v === '');
-            }}
+  RED.nodes.registerType('pushsafer-config-template', {
+    category: 'config',
+    defaults: {
+      name: { value: '' },
+      title: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return String(v).length <= 255;
         },
-        label: function() {
-            return this.name || 'PushSafer Notification Template Name';
+      },
+      message: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return String(v).length <= 255;
         },
-        oneditprepare: function(){            
-            
-            setTimeout(() => {
-                
+      },
+      sound: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 0 && v <= 62) || v === '';
+        },
+      },
+      vibration: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 1 && v <= 3) || v === '';
+        },
+      },
+      icon: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 1 && v <= 177) || v === '';
+        },
+      },
+      iconcolor: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return /^#[0-9A-F]{6}$/i.test(v);
+        },
+      },
+      url: { value: null, required: false },
+      urltitle: { value: null, required: false },
+      image: { value: null, required: false },
+      imageusepayload: { value: null, required: false },
+      image2: { value: null, required: false },
+      image2usepayload: { value: null, required: false },
+      image3: { value: null, required: false },
+      image3usepayload: { value: null, required: false },
+      imagesize: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 0 && v <= 3) || v === '';
+        },
+      },
+      timetolive: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 0 && v <= 43200) || v === '';
+        },
+      },
+      priority: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= -2 && v <= 2) || v === '';
+        },
+      },
 
-                for (let i=1; i<=60; i++){
-                    updateIconNumber(i);
-                    $('#pushsafer-icon-list-left').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i}.jpg" width="32" height="32" style="cursor:pointer" onclick="updateIconNumber(${i})"></li>`);
-                    $('#pushsafer-icon-list-middle').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i+60}.jpg" width="32" height="32" style="cursor:pointer" onclick="updateIconNumber(${i+60})"></li>`);
-                    if (i+120 <= 177)
-                        $('#pushsafer-icon-list-right').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i+120}.jpg" width="32" height="32" style="cursor:pointer" onclick="updateIconNumber(${i+120})"></li>`);
-                }    
-                $('#pushsafer-template-icon-list').hide();
-                $('#node-config-input-icon').focusin(() => $('#pushsafer-template-icon-list').show());
-                $('#node-config-input-icon').focusout(() => setTimeout(() => $('#pushsafer-template-icon-list').hide(), 250));
-            }, 250);
-            
-        }        
-    });   
-    const updateIconNumber = (iconNumber) => {
-                    $('#node-config-input-icon').val(iconNumber);
-                    $('#pushsafer-template-icon-list').hide();
-                } 
+      retry: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 60 && v <= 10800) || v === '';
+        },
+      },
+      expire: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 60 && v <= 10800) || v === '';
+        },
+      },
+      answer: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 0 && v <= 1) || v === '';
+        },
+      },
+      confirm: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return (v >= 10 && v <= 10800) || v === '';
+        },
+      },
+      giphy: {
+        value: null,
+        required: false,
+        validate: (v) => {
+          return String(v).length <= 255;
+        },
+      },
+    },
+    label: function () {
+      return this.name || 'PushSafer Notification Template Name';
+    },
+    oneditprepare: function () {
+      window['pushsaferUpdateIconNumber'] = (iconNumber) => {
+        $('#node-config-input-icon').val(iconNumber);
+        $('#pushsafer-template-icon-list').hide();
+      };
+      setTimeout(() => {
+        for (let i = 1; i <= 60; i++) {
+          $('#pushsafer-icon-list-left').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i}.jpg" width="32" height="32" style="cursor:pointer" onclick="pushsaferUpdateIconNumber(${i})"></li>`);
+          $('#pushsafer-icon-list-middle').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i + 60}.jpg" width="32" height="32" style="cursor:pointer" onclick="pushsaferUpdateIconNumber(${i + 60})"></li>`);
+          if (i + 120 <= 177) $('#pushsafer-icon-list-right').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i + 120}.jpg" width="32" height="32" style="cursor:pointer" onclick="pushsaferUpdateIconNumber(${i + 120})"></li>`);
+        }
+        $('#pushsafer-template-icon-list').hide();
+        $('#node-config-input-icon').focusin(() => $('#pushsafer-template-icon-list').show());
+        $('#node-config-input-icon').focusout(() => setTimeout(() => $('#pushsafer-template-icon-list').hide(), 250));
+      }, 250);
+    },
+    oneditsave: function(){
+        delete window['pushsaferUpdateIconNumber'];
+    },
+    oneditcancel: function(){
+        delete window['pushsaferUpdateIconNumber'];
+    }
+  });
 </script>

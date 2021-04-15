@@ -2,18 +2,19 @@
 const psHelper = require('./helper');
 
 module.exports = function (RED) {
-  function nodeMessage(config) {
+  RED.nodes.registerType('pushsafer_message', function (config) {
     RED.nodes.createNode(this, config);
 
     const node = this;
 
+    //Get credentials and config nodes
     node.configApi = RED.nodes.getCredentials(config.configApi);
     node.configDevices = RED.nodes.getNode(config.configDevices);
     node.configTemplate = RED.nodes.getNode(config.configTemplate);
 
-    let configApiOk = psHelper.checkConfigApi(node);
+    const configApiOk = psHelper.checkConfigApi(node);
 
-    async function onInput(msg, send, done) {
+    node.on('input', async function (msg, send, done) {
       // For maximum backwards compatibility, check that send exists.
       // If this node is installed in Node-RED 0.x, it will need to
       // fallback to using `node.send`
@@ -25,15 +26,15 @@ module.exports = function (RED) {
 
       if (!configApiOk) return;
 
-      if (psHelper.checkAndParseMessagePayload(msg, node) === false) return;
+      //if (psHelper.checkAndParseMessagePayload(msg, node) === false) return;
 
       // Build notification object
-      // If parameter is not provided directly in the msg object take the template parameter
+      // If parameter is not provided directly in the msg object, template parameter will be used
       const notification = {
         k: node.configApi.apikey,
         d: msg.devices || node.configDevices.devices,
         t: msg.title || node.configTemplate.title,
-        m: msg.payload,
+        m: node.configTemplate.message || msg.payload,
         s: msg.sound || node.configTemplate.sound,
         v: msg.vibration || node.configTemplate.vibration,
         i: msg.icon || node.configTemplate.icon,
@@ -55,25 +56,31 @@ module.exports = function (RED) {
 
       // If one of the three image information are set, try to get and encode the image as base64
       if (notification.p || notification.p2 || notification.p3) {
-        node.status({ fill: 'yellow', shape: 'ring', text: 'try to get and encode images' });
+        psHelper.setNodeStatus(node, 'yellow', 'ring', 'try to get and encode images', 5000);
         [notification.p, notification.p2, notification.p3] = await Promise.all([psHelper.getAndParseImage(notification.p, node), psHelper.getAndParseImage(notification.p2, node), psHelper.getAndParseImage(notification.p3, node)]);
       }
 
-      // Remove all not used elements of the notification object
-      for (let element in notification) {
-        if (!notification[element]) {
-          psHelper.removeElementFromObject(notification, element);
-        }
+      if (node.configTemplate.imageusepayload) {
+        notification.p = msg.payload;
+      }
+      if (node.configTemplate.image2usepayload) {
+        notification.p2 = msg.payload;
+      }
+      if (node.configTemplate.image3usepayload) {
+        notification.p3 = msg.payload;
       }
 
+      // Remove all not used elements of the notification object
+      psHelper.removeAllUnusedElements(notification);
+
       // Set status of the node -> try to send
-      node.status({ fill: 'yellow', shape: 'dot', text: 'try to send' });
+      psHelper.setNodeStatus(node, 'yellow', 'dot', 'send request', 5000);
 
       psHelper
-        .sendRequest(notification, psHelper.api_urls.message_api)
+        .sendRequest(notification, psHelper.ApiEndpoints.message_api)
         .then((response) => {
           // Parse and check the result string
-          let parsedResponse = psHelper.checkAndParseResponse(response, node);
+          let parsedResponse = psHelper.checkAndParseResponse(node, response);
 
           let infoData = parsedResponse.message_ids ? parsedResponse.message_ids.split(':', 2) : undefined;
 
@@ -81,8 +88,7 @@ module.exports = function (RED) {
           send({ payload: { message_id: infoData[0], device: infoData[1] }, topic: 'fromPushsaferMessageNode' });
         })
         .catch((error) => {
-          node.status({ fill: 'red', shape: 'dot', text: 'send failed' });
-          psHelper.resetNodeStatus(node, 5000);
+          psHelper.setNodeStatus(node, 'red', 'dot', 'send failed', 5000);
           node.error('pushsafer error: ' + error);
         })
         .finally(() => {
@@ -90,11 +96,9 @@ module.exports = function (RED) {
             done();
           }
         });
-    }
+    });
 
-    this.on('input', onInput);
-
-    this.on('close', (removed, done) => {
+    node.on('close', (removed, done) => {
       if (removed) {
         // This node has been removed, do something
       } else {
@@ -105,6 +109,5 @@ module.exports = function (RED) {
         done();
       }
     });
-  }
-  RED.nodes.registerType('pushsafer_message', nodeMessage);
+  });
 };
