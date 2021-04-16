@@ -25,31 +25,30 @@ module.exports = function (RED) {
 
       if (!configApiOk) return;
 
-      if (psHelper.checkAndParseIncomingReadPayload(msg, node) === false) return;
-
-      // Build message object
-      // If parameter is not provided directly in the msg object take the template parameter
-      const message = {
+      // Build request object
+      // If parameter is not provided directly in the msg object, node parameter will be used
+      const request = {
         k: node.configApi.apikey,
-        d: msg.payload.device || node.configDevices.devices,
+        d: msg.devices || node.configDevices.devices,
       };
 
       // Set status of the node -> send request
-      psHelper.setNodeStatus(node, 'yellow', 'dot', 'send request', 5000);
+      psHelper.setNodeStatus(node, 'yellow', 'ring', 'send request', 5000);
 
       psHelper
-        .sendRequest(message, psHelper.ApiEndpoints.read_api)
+        .sendRequest(request, psHelper.ApiEndpoints.ReadApi)
         .then((response) => {
           // Parse and check the result string
-          let parsedResponse = psHelper.checkAndParseResponse(node, response);
+          const parsedResponse = psHelper.checkAndParseResponse(node, response);
 
           psHelper.removeElementFromObject(parsedResponse, 'status');
-          // Return the response
-          send({ payload: { ...{ device: message.d }, ...parsedResponse }, topic: 'fromPushsaferReadNode' });
+
+          // Return response object
+          send({ payload: parsedResponse, topic: msg.topic, devices: request.d });
         })
         .catch((error) => {
           psHelper.setNodeStatus(node, 'red', 'dot', 'send failed', 5000);
-          node.error('pushsafer error: ' + error);
+          node.error('Pushsafer: Send request error: ' + error);
         })
         .finally(() => {
           if (done) {

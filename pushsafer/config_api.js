@@ -20,8 +20,8 @@ module.exports = function (RED) {
 
   RED.httpAdmin.post('/pushsafer/checkconfigapi', RED.auth.needsPermission('pushsafer-config-api.read'), async (req, res) => {
     res.json(
-      await psHelper.sendRequest(req.body, psHelper.ApiEndpoints.key_api).catch((e) => {
-        console.log(e);
+      await psHelper.sendRequest(req.body, psHelper.ApiEndpoints.KeyApi).catch((error) => {
+        console.log('Pushsafer: REST request for CheckConfigApi failed: ' + error);
       })
     );
   });

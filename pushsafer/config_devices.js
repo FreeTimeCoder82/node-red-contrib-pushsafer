@@ -17,14 +17,14 @@ module.exports = function (RED) {
       return;
     }
 
-    const message = {
+    const request = {
       k: configApiCredentials.apikey,
       u: configApiCredentials.username,
     };
 
     res.json(
-      await psHelper.sendRequest(message, psHelper.ApiEndpoints.device_api).catch((e) => {
-        console.log(e);
+      await psHelper.sendRequest(request, psHelper.ApiEndpoints.DeviceApi).catch((error) => {
+        console.log('Pushsafer: REST request for GetDevices failed: ' + error);
       })
     );
   });

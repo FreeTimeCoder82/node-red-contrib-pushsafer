@@ -26,11 +26,9 @@ module.exports = function (RED) {
 
       if (!configApiOk) return;
 
-      //if (psHelper.checkAndParseMessagePayload(msg, node) === false) return;
-
-      // Build notification object
-      // If parameter is not provided directly in the msg object, template parameter will be used
-      const notification = {
+      // Build request object
+      // If parameter is not provided directly in the msg object, node parameter will be used
+      const request = {
         k: node.configApi.apikey,
         d: msg.devices || node.configDevices.devices,
         t: msg.title || node.configTemplate.title,
@@ -55,41 +53,50 @@ module.exports = function (RED) {
       };
 
       // If one of the three image information are set, try to get and encode the image as base64
-      if (notification.p || notification.p2 || notification.p3) {
-        psHelper.setNodeStatus(node, 'yellow', 'ring', 'try to get and encode images', 5000);
-        [notification.p, notification.p2, notification.p3] = await Promise.all([psHelper.getAndParseImage(notification.p, node), psHelper.getAndParseImage(notification.p2, node), psHelper.getAndParseImage(notification.p3, node)]);
+      if (request.p || request.p2 || request.p3) {
+        psHelper.setNodeStatus(node, 'yellow', 'ring', 'get and encode images', 5000);
+        [request.p, request.p2, request.p3] = await Promise.all([psHelper.getAndParseImage(node, request.p), psHelper.getAndParseImage(node, request.p2), psHelper.getAndParseImage(node, request.p3)]);
       }
 
+      // Check if the payload should be used as an image
       if (node.configTemplate.imageusepayload) {
-        notification.p = msg.payload;
+        request.p = msg.payload;
       }
       if (node.configTemplate.image2usepayload) {
-        notification.p2 = msg.payload;
+        request.p2 = msg.payload;
       }
       if (node.configTemplate.image3usepayload) {
-        notification.p3 = msg.payload;
+        request.p3 = msg.payload;
       }
 
       // Remove all not used elements of the notification object
-      psHelper.removeAllUnusedElements(notification);
+      psHelper.removeAllUnusedElements(request);
 
-      // Set status of the node -> try to send
-      psHelper.setNodeStatus(node, 'yellow', 'dot', 'send request', 5000);
+      // Set status of the node -> send request
+      psHelper.setNodeStatus(node, 'yellow', 'ring', 'send request', 5000);
 
       psHelper
-        .sendRequest(notification, psHelper.ApiEndpoints.message_api)
+        .sendRequest(request, psHelper.ApiEndpoints.MessageApi)
         .then((response) => {
           // Parse and check the result string
-          let parsedResponse = psHelper.checkAndParseResponse(node, response);
+          const parsedResponse = psHelper.checkAndParseResponse(node, response);
 
-          let infoData = parsedResponse.message_ids ? parsedResponse.message_ids.split(':', 2) : undefined;
+          //Extract message and device id
+          let payload = null;
+          if (parsedResponse.message_ids) {
+            const messageIdsSplitted = parsedResponse.message_ids.split(':', 2);
+            payload = {
+              message_id: messageIdsSplitted[0],
+              device: messageIdsSplitted[1],
+            };
+          }
 
-          // Return the notification response object
-          send({ payload: { message_id: infoData[0], device: infoData[1] }, topic: 'fromPushsaferMessageNode' });
+          // Return response object
+          send({ payload, topic: msg.topic });
         })
         .catch((error) => {
           psHelper.setNodeStatus(node, 'red', 'dot', 'send failed', 5000);
-          node.error('pushsafer error: ' + error);
+          node.error('Pushsafer: Send request error: ' + error);
         })
         .finally(() => {
           if (done) {
