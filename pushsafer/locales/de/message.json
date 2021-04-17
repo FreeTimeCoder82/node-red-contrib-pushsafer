@@ -1,9 +1,0 @@
-{
-    "pushsafer": {
-        "message": {
-            "nodeName": "Sende Benachrichtigung",
-            "devices": "Geräte",
-            "template": "Vorlage"
-        }
-    }
-}

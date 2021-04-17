@@ -23,11 +23,11 @@
   ],
   "node-red": {
     "nodes": {
-      "pushsafer_config_api": "pushsafer/config_api.js",
-      "pushsafer_config_devices": "pushsafer/config_devices.js",
+      "pushsafer_config_key_api": "pushsafer/config_key_api.js",
+      "pushsafer_config_devices_api": "pushsafer/config_devices_api.js",
       "pushsafer_config_template": "pushsafer/config_template.js",
-      "pushsafer_message": "pushsafer/message.js",
-      "pushsafer_read": "pushsafer/read.js"
+      "pushsafer_send_api": "pushsafer/send_api.js",
+      "pushsafer_read_api": "pushsafer/read_api.js"
     }
   },
   "author": {

@@ -1,0 +1,11 @@
+{
+  "pushsafer": {
+    "send_api": {
+      "nodeName": "send",
+      "newInstance": "New send config",
+      "key": "Key",
+      "devices": "Devices",
+      "template": "Template"
+    }
+  }
+}

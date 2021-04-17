@@ -1,4 +1,4 @@
-<script type="text/x-red" data-template-name="pushsafer-config-template">
+<script type="text/x-red" data-template-name="pushsafer_config_template">
   <div class="form-row">
       <label for="node-config-input-title"><i class="fa fa-header"></i> Title</label>
       <input type="text" id="node-config-input-title" placeholder="Title of the push-notification, max. 255 characters">
@@ -180,12 +180,12 @@
   <br/>
   <div class="form-row">
       <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
-      <input type="text" id="node-config-input-name" placeholder="PushSafer Notification Template Name">
+      <input type="text" id="node-config-input-name" data-i18n="[placeholder]pushsafer.config_template.namePlaceholder">
   </div>
 </script>
 
 <script type="text/javascript">
-  RED.nodes.registerType('pushsafer-config-template', {
+  RED.nodes.registerType('pushsafer_config_template', {
     category: 'config',
     defaults: {
       name: { value: '' },
@@ -298,7 +298,7 @@
       },
     },
     label: function () {
-      return this.name || 'PushSafer Notification Template Name';
+      return this.name || this._('pushsafer.config_template.newInstance');
     },
     oneditprepare: function () {
       window['pushsaferUpdateIconNumber'] = (iconNumber) => {

@@ -1,0 +1,42 @@
+<script type="text/x-red" data-template-name="pushsafer_read_api">
+    <div class="form-row">
+        <label for="node-input-configApi"><i class="fa fa-key"></i> <span data-i18n="pushsafer.read_api.key"></span></label>
+        <input type="text" id="node-input-configKeyApi">
+    </div>
+    <div class="form-row">
+        <label for="node-input-configDevices"><i class="fa fa-tablet"></i> <span data-i18n="pushsafer.read_api.devices"></span></label>
+        <input type="text" id="node-input-configDevicesApi">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips" id="node-tip">
+        <span data-i18n="pushsafer.read_api.tip"></span>
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('pushsafer_read_api',{
+        category: 'pushsafer',
+        defaults: {            
+            name: {value: ''},
+            configKeyApi: {type: 'pushsafer_config_key_api', required: true},
+            configDevicesApi: {type: 'pushsafer_config_devices_api', required: true}
+        },
+        color: '#FC5800',
+        inputs: 1,
+        inputLabels: 'msg.devices = device ID from which you want to receive the messages',
+        outputs: 1,
+        outputLabels: ['msg.payload = JSON object of the latest messages'],
+        icon: 'pushsafer.png',
+        align: 'right',
+        label: function() {
+            return this.name || this._('pushsafer.read_api.newInstance');
+        },
+        paletteLabel: function(){
+            return this._('pushsafer.read_api.nodeName');
+        }
+    });
+</script>

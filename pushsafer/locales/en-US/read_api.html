@@ -1,0 +1,21 @@
+<script type="text/x-red" data-help-name="pushsafer_read_api">
+  <p>With the Read API use Private Key and Device ID to retrieve all messages of a device (including all parameters)</p>
+
+  <h3>Input</h3>
+    <dl class="message-properties">
+      <dt>msg.devices<span class="property-type">string</span></dt>
+      <dd>device ID from which you want to receive the messages</dd>
+    </dl>
+
+  <h3>Output</h3>
+    <dl class="message-properties">
+      <dt>msg.payload<span class="property-type">object</span></dt>
+      <dd>JSON object of the latest messages</dd>
+    </dl>
+  
+  <h3>References</h3>
+      <ul>
+          <li><a href="https://www.pushsafer.com/en/pushapi#api-read" target="_blank">Pushsafer Read API doc</a></li>
+          <li><a href="https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer" target="_blank">GitHub repository</a></li>
+      </ul>
+</script>

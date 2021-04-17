@@ -13,21 +13,21 @@ const ApiEndpoints = {
 
 const checkConfigApi = (node) => {
   // Check if there is a valid api config object
-  if (!node.configApi) {
+  if (!node.configKeyApi) {
     setNodeStatus(node, 'red', 'dot', 'No valid api config object found', 5000);
     node.error('Pushsafer: No valid api config object found');
     return false;
   }
 
   // Check if there is a valid api key
-  if (!node.configApi.apikey || node.configApi.apikey.length !== 20) {
+  if (!node.configKeyApi.apikey || node.configKeyApi.apikey.length !== 20) {
     setNodeStatus(node, 'red', 'dot', 'No valid api key found', 5000);
     node.error('Pushsafer: No valid api key found');
     return false;
   }
 
   // Check if there is a valid username
-  if (!node.configApi.username) {
+  if (!node.configKeyApi.username) {
     setNodeStatus(node, 'red', 'dot', 'No valid username found', 5000);
     node.error('Pushsafer: No valid username found');
     return false;
@@ -119,8 +119,8 @@ const sendRequest = (msg, api_path) => {
       });
     });
 
-    req.on('error', (e) => {
-      reject(e);
+    req.on('error', (error) => {
+      reject(error);
     });
 
     req.write(postData);

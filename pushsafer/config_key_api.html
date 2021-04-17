@@ -1,29 +1,29 @@
-<script type="text/x-red" data-template-name="pushsafer-config-api">
+<script type="text/x-red" data-template-name="pushsafer_config_key_api">
   <div class="form-row">
-      <label for="node-config-input-apikey"><i class="fa fa-key"></i> <span data-i18n="pushsafer.config_api.apiKey"></span></label>
+      <label for="node-config-input-apikey"><i class="fa fa-key"></i> <span data-i18n="pushsafer.config_key_api.apiKey"></span></label>
       <input type="text" id="node-config-input-apikey">
   </div>
   <div class="form-row">
-      <label for="node-config-input-username"><i class="fa fa-user"></i> <span data-i18n="pushsafer.config_api.username"></span></label>
+      <label for="node-config-input-username"><i class="fa fa-user"></i> <span data-i18n="pushsafer.config_key_api.username"></span></label>
       <input type="text" id="node-config-input-username">
   </div>
   <div class="form-row">
-      <label for="node-config-input-check"><i class="fa fa-question"></i> <span data-i18n="pushsafer.config_api.check"></span></label>
+      <label for="node-config-input-check"><i class="fa fa-question"></i> <span data-i18n="pushsafer.config_key_api.check"></span></label>
       <div style="display: inline-block; position: relative; width: 70%; height: 20px;">
           <a id="node-config-input-check" class="editor-button" style="width:100%;">
-              <span data-i18n="pushsafer.config_api.checkButtonStandard"></span>
+              <span data-i18n="pushsafer.config_key_api.checkButtonStandard"></span>
           </a>
       </div>
   </div>
   <br/>
   <div class="form-row">
       <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
-      <input type="text" id="node-config-input-name" data-i18n="[placeholder]pushsafer.config_api.namePlaceholder">
+      <input type="text" id="node-config-input-name" data-i18n="[placeholder]pushsafer.config_key_api.namePlaceholder">
   </div>
 </script>
 
 <script type="text/javascript">
-  RED.nodes.registerType('pushsafer-config-api', {
+  RED.nodes.registerType('pushsafer_config_key_api', {
     category: 'config',
     defaults: {
       name: { value: '' },
@@ -45,7 +45,7 @@
       },
     },
     label: function () {
-      return this.name || this._('pushsafer.config_api.nodeName');
+      return this.name || this._('pushsafer.config_key_api.newInstance');
     },
     oneditprepare: function () {
       const node = this;
@@ -54,27 +54,27 @@
       let timeoutId = null;
 
       const setPendingRequestButton = () => {
-        elementNodeConfigInputCheck.text(node._('pushsafer.config_api.requestServer'));
+        elementNodeConfigInputCheck.text(node._('pushsafer.config_key_api.requestServer'));
         elementNodeConfigInputCheck.css({ 'background-color': 'rgba(0,0,255,0.2)' });
         elementNodeConfigInputCheckIcon.remove();
       };
 
       const setValidRequestButton = () => {
-        elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonValid'));
+        elementNodeConfigInputCheck.text(node._('pushsafer.config_key_api.checkButtonValid'));
         elementNodeConfigInputCheck.css({ 'background-color': 'rgba(0,255,0,0.2)' });
         elementNodeConfigInputCheck.append('<i id="node-config-input-check-icon" class="fa fa-check"></i>');
         elementNodeConfigInputCheckIcon = $('#node-config-input-check-icon');
       };
 
       const setInvalidRequestButton = () => {
-        elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonInvalid'));
+        elementNodeConfigInputCheck.text(node._('pushsafer.config_key_api.checkButtonInvalid'));
         elementNodeConfigInputCheck.css({ 'background-color': 'rgba(255,0,0,0.2)' });
         elementNodeConfigInputCheck.append('<i id="node-config-input-check-icon" class="fa fa-exclamation"></i>');
         elementNodeConfigInputCheckIcon = $('#node-config-input-check-icon');
       };
 
       const setDefaultRequestButton = () => {
-        elementNodeConfigInputCheck.text(node._('pushsafer.config_api.checkButtonStandard'));
+        elementNodeConfigInputCheck.text(node._('pushsafer.config_key_api.checkButtonStandard'));
         elementNodeConfigInputCheck.css({ 'background-color': '' });
         elementNodeConfigInputCheckIcon.remove();
       };
@@ -90,7 +90,7 @@
         const apiKey = $('#node-config-input-apikey').val();
         const username = $('#node-config-input-username').val();
 
-        fetch('pushsafer/checkconfigapi', {
+        fetch('pushsafer/configkeyapi', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -109,7 +109,7 @@
           })
           .catch((error) => {
             setDefaultRequestButton();
-            RED.notify(node._('pushsafer.config_api.requestFailed'), 'error');
+            RED.notify(node._('pushsafer.config_key_api.requestFailed'), 'error');
           });
       });
     },

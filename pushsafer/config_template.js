@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (RED) {
-  RED.nodes.registerType('pushsafer-config-template', function (config) {
+  RED.nodes.registerType('pushsafer_config_template', function (config) {
     RED.nodes.createNode(this, config);
     this.title = config.title;
     this.message = config.message;

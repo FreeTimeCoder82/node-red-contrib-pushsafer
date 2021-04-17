@@ -1,0 +1,17 @@
+{
+    "pushsafer" : {
+        "config_key_api":{
+            "nodeName": "Schlüssel",
+            "newInstance": "Neue Schlüssel Konfiguration",
+            "namePlaceholder": "Name der Schlüssel Konfiguration",
+            "apiKey": "Schlüssel",
+            "username": "Benutzer",
+            "check": "Prüfen",            
+            "checkButtonStandard": "Klicken um Schlüssel & Benutzer zu prüfen",
+            "checkButtonValid": "Schlüssel und Benutzer sind gültig ",
+            "checkButtonInvalid": "Schlüssel oder Benutzer ist ungültig ",
+            "requestServer": "Sende Anfrage an Pushsafer Server...",
+            "requestFailed": "Anfrage fehlgeschlagen!"
+        }
+    }
+}

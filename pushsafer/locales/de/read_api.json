@@ -1,0 +1,11 @@
+{
+  "pushsafer": {
+    "read_api": {
+      "nodeName": "Lesen",
+      "newInstance": "Neue Lesen Konfiguration",
+      "key": "Schlüssel",
+      "devices": "Geräte",
+      "tip": "Der gewählte Schlüssel muss für die Verwendung bereits übernommen worden sein."
+    }
+  }
+}

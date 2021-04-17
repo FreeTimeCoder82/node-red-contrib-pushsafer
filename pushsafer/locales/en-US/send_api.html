@@ -1,0 +1,77 @@
+<script type="text/x-red" data-help-name="pushsafer_send_api">
+    <p>A Pushsafer API wrapper for Node-RED.</p>
+    <p>This node can be used in three different variants.</p>
+    <p>
+        <ol>
+            <li>Using templates, to reuse the settings of a notification in other node instances.</li>
+            <li>Providing all settings in the msg object. See optional inputs below.</li>
+            <li>A combination of both variants. Using a template and then override some settings by adding the parameter in the msg object.</li>
+        </ol>
+    </p>
+
+    <h3>Input</h3>
+        <dl class="message-properties">
+            <dt>msg.payload<span class="property-type">string</span></dt>
+            <dd> the message of the notification</dd>
+
+            <dt class="optional">msg.title<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.icon<span class="property-type">number</span></dt>
+            <dd> the icon number of the notification</dd>
+
+            <dt class="optional">msg.iconcolor<span class="property-type">color</span></dt>
+            <dd> the background color of the icon</dd>
+
+            <dt class="optional">msg.sound<span class="property-type">number</span></dt>
+            <dd> the sound number of the notification</dd>
+
+            <dt class="optional">msg.vibration<span class="property-type">number</span></dt>
+            <dd> the count of vibrations of the notification</dd>
+
+            <dt class="optional">msg.priority<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.devices<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.timetolive<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.retry<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.expire<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.answer<span class="property-type">number</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.url<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.urltitle<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.image<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.image2<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+
+            <dt class="optional">msg.image3<span class="property-type">string</span></dt>
+            <dd> the title of the notification</dd>
+        </dl>
+    
+    <h3>Output</h3>
+        <dl class="message-properties">
+            <dt>msg.payload <span class="property-type">object</span></dt>
+            <dd>the result object with success or error information</dd>
+        </dl>
+                    
+    <h3>References</h3>
+        <ul>
+            <li><a href="https://www.pushsafer.com/en/pushapi#api-message" target="_blank">Pushsafer Send API doc</a></li>
+            <li><a href="https://github.com/FreeTimeCoder82/node-red-contrib-pushsafer" target="_blank">GitHub</a></li>
+        </ul>
+</script>

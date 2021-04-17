@@ -1,8 +1,0 @@
-{
-    "pushsafer": {
-        "config_devices": {
-            "devices": "Geräte",
-            "warningNoDevicesFound": "Keine Geräte gefunden!"
-        }
-    }
-}

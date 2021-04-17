@@ -1,0 +1,13 @@
+{
+    "pushsafer": {
+        "config_devices_api": {
+            "nodeName": "Devices",
+            "newInstance": "New devices config",
+            "namePlaceholder": "Name of device config",
+            "key": "Key",
+            "devices": "Devices",
+            "devicesPlaceholder": "Device or device group",
+            "warningNoDevicesFound": "No devices found!"
+        }
+    }
+}

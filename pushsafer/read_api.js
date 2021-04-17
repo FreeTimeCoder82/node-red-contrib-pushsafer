@@ -2,14 +2,14 @@
 const psHelper = require('./helper');
 
 module.exports = function (RED) {
-  RED.nodes.registerType('pushsafer_read', function (config) {
+  RED.nodes.registerType('pushsafer_read_api', function (config) {
     RED.nodes.createNode(this, config);
 
     const node = this;
 
     //Get credentials and config nodes
-    node.configApi = RED.nodes.getCredentials(config.configApi);
-    node.configDevices = RED.nodes.getNode(config.configDevices);
+    node.configKeyApi = RED.nodes.getCredentials(config.configKeyApi);
+    node.configDevicesApi = RED.nodes.getNode(config.configDevicesApi);
 
     const configApiOk = psHelper.checkConfigApi(node);
 
@@ -28,8 +28,8 @@ module.exports = function (RED) {
       // Build request object
       // If parameter is not provided directly in the msg object, node parameter will be used
       const request = {
-        k: node.configApi.apikey,
-        d: msg.devices || node.configDevices.devices,
+        k: node.configKeyApi.apikey,
+        d: msg.devices || node.configDevicesApi.devices,
       };
 
       // Set status of the node -> send request
