@@ -19,7 +19,7 @@ Or use the palette manager inside of Node-RED
 
 ## Send node
 ![ConfigKeyApi](assets/pushsafer_send_node.png)<br>
-The Send node can be used to send push messages to a device or groups of devices.
+The Send node can be used to send push messages to a device or group of devices.
 #### Message parameters which can be used.<br>If passed the parameter will replace the value from the template.
 - `msg.payload` (any): Message / text of the push notification; [HTML Styling](https://www.pushsafer.com/pushapi_ext#API-HTML) can be used -> [Pushsafer API doc](https://www.pushsafer.com/pushapi_ext#API-M); 
 - `msg.devices` (string): This parameter controls to which devices or device groups the message is sent to -> [Pushsafer API doc](https://www.pushsafer.com/pushapi_ext#API-D)
@@ -45,22 +45,27 @@ The Send node can be used to send push messages to a device or groups of devices
 ## Read node
 ![ConfigKeyApi](assets/pushsafer_read_node.png)<br>
 The read node can be used to read push messages that have already been sent from the server (including all parameters).
-#### Message parameter which can be used.<br>If passed the parameter will replace the value from the template.
+#### Message parameter which can be used.<br>If passed the parameter will replace the value from the config.
 - `msg.devices` (string): This parameter controls from which device or device group you want to read the messages -> [Pushsafer API doc](https://www.pushsafer.com/pushapi_ext#API-D) 
 
-## Config - Key node
+## Config - key node
 The key node stores the API key and the username.<br>
-This node can be used in the send and read node.<br>
+This config node can be used in the send, read and config device node.<br>
 It has a built-in validation function to ensure that the key and username are valid.
 
 ![ConfigKeyApi](assets/pushsafer_config_key_api.png)<br>
 ![ConfigKeyApiOk](assets/pushsafer_config_key_api_ok.png)<br>
 ![ConfigKeyApiFailed](assets/pushsafer_config_key_api_failed.png)
 
-## Config - Devices node
+## Config - device node
 The device node stores the device or device group id.<br>
-This node can be used in the send and read node.<br>
-It has a built-in query function to read out the devices and device groups stored on the Pushsafer server.<br>
-The key node used for the query must have been deployed, since the actual query is sent from the backend.
+This config node can be used in the send and read node.<br>
+It has a built-in query function to read out all devices and device groups stored on the Pushsafer server.<br>
+*The key node used for the query must have been deployed, since the actual query is sent from the backend.*
 
 ![ConfigDevicesApi](assets/pushsafer_config_devices_api.png)
+
+## Config - template node
+The template node stores a selection of parameters for the send node.<br>
+By using templates, messages can be more easily designed and reused.<br>
+This config node can be used in the send node.

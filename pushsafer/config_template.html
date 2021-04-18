@@ -1,11 +1,11 @@
 <script type="text/x-red" data-template-name="pushsafer_config_template">
   <div class="form-row">
       <label for="node-config-input-title"><i class="fa fa-header"></i> Title</label>
-      <input type="text" id="node-config-input-title" placeholder="Title of the push-notification, max. 255 characters">
+      <input type="text" id="node-config-input-title">
   </div>
   <div class="form-row">
       <label for="node-config-input-message"><i class="fa fa-envelope-o"></i> Message</label>
-      <input type="text" id="node-config-input-message" placeholder="Message of the push-notification, max. 255 characters">
+      <input type="text" id="node-config-input-message">
   </div>
   <div class="form-row">
       <label for="node-config-input-sound"><i class="fa fa-volume-up"></i> Sound</label>
@@ -87,7 +87,7 @@
   </div>
   <div class="form-row">
       <label for="node-config-input-icon"><i class="fa fa-file-image-o"></i> Icon</label>
-      <input type="number" min="1" max="177" id="node-config-input-icon" placeholder="Icon of the push-notification">
+      <input type="number" min="1" max="177" id="node-config-input-icon">
   </div>
   <div class="form-row">
       <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon color</label>
@@ -95,15 +95,15 @@
   </div>
   <div class="form-row">
       <label for="node-config-input-url"><i class="fa fa-external-link"></i> URL</label>
-      <input type="url" id="node-config-input-url" placeholder="URL which can be opened from the push-notification">
+      <input type="url" id="node-config-input-url">
   </div>
   <div class="form-row">
       <label for="node-config-input-urltitle"><i class="fa fa-external-link"></i> URL Title</label>
-      <input type="text" id="node-config-input-urltitle" placeholder="Title for the URL">
+      <input type="text" id="node-config-input-urltitle">
   </div>
   <div class="form-row">
       <label for="node-config-input-image"><i class="fa fa-picture-o"></i> Image</label>
-      <input type="text" id="node-config-input-image" placeholder="URL or local path to the image">
+      <input type="text" id="node-config-input-image">
   </div>
   <div class="form-row">
       <label for="node-config-input-image-use-payload">&nbsp;</label>
@@ -112,7 +112,7 @@
   </div>
   <div class="form-row">
       <label for="node-config-input-image2"><i class="fa fa-picture-o"></i> Image 2</label>
-      <input type="text" id="node-config-input-image2" placeholder="URL or local path to the image 2">
+      <input type="text" id="node-config-input-image2">
   </div>
   <div class="form-row">
       <label for="node-config-input-image2-use-payload">&nbsp;</label>
@@ -121,7 +121,7 @@
   </div>
   <div class="form-row">
       <label for="node-config-input-image3"><i class="fa fa-picture-o"></i> Image 3</label>
-      <input type="text" id="node-config-input-image3" placeholder="URL or local path to the image 3">
+      <input type="text" id="node-config-input-image3">
   </div>
   <div class="form-row">
       <label for="node-config-input-image3-use-payload">&nbsp;</label>
@@ -140,7 +140,7 @@
   </div>
   <div class="form-row">
       <label for="node-config-input-timetolive"><i class="fa fa-heart-o"></i> Time to live</label>
-      <input type="number" min="0" max="43200" step="1" id="node-config-input-timetolive" placeholder="Time in minutes before automatic deletion">
+      <input type="number" min="0" max="43200" step="1" id="node-config-input-timetolive">
   </div>
   <div class="form-row">
       <label for="node-config-input-priority"><i class="fa fa-exclamation"></i> Priority</label>
@@ -155,11 +155,11 @@
   </div>
   <div class="form-row">
       <label for="node-config-input-retry"><i class="fa fa-repeat"></i> Retry</label>
-      <input type="number" min="60" max="10800" step="60" id="node-config-input-retry" placeholder="Time in seconds a message will be resent">
+      <input type="number" min="60" max="10800" step="60" id="node-config-input-retry">
   </div>
   <div class="form-row">
       <label for="node-config-input-expire"><i class="fa fa-heart"></i> Expire</label>
-      <input type="number" min="60" max="10800" step="60" id="node-config-input-expire" placeholder="Time in seconds after resending stops">
+      <input type="number" min="60" max="10800" step="60" id="node-config-input-expire">
   </div>
   <div class="form-row">
       <label for="node-config-input-answer"><i class="fa fa-commenting-o"></i> Answer</label>
@@ -171,11 +171,11 @@
   </div>
   <div class="form-row">
       <label for="node-config-input-confirm"><i class="fa fa-picture-o"></i> Confirm / Resend</label>
-      <input type="number" min="10" max="10800" step="10" id="node-config-input-confirm" placeholder="">
+      <input type="number" min="10" max="10800" step="10" id="node-config-input-confirm">
   </div>
   <div class="form-row">
       <label for="node-config-input-giphy"><i class="fa fa-picture-o"></i> GIPHY GIF</label>
-      <input type="text" id="node-config-input-giphy" placeholder="GIPHY GIF code">
+      <input type="text" id="node-config-input-giphy">
   </div>
   <br/>
   <div class="form-row">
@@ -303,7 +303,7 @@
     oneditprepare: function () {
       window['pushsaferUpdateIconNumber'] = (iconNumber) => {
         $('#node-config-input-icon').val(iconNumber);
-        $('#pushsafer-template-icon-list').hide();
+        $('#pushsafer-config-template-help-icon').hide();
       };
       setTimeout(() => {
         for (let i = 1; i <= 60; i++) {
@@ -311,16 +311,130 @@
           $('#pushsafer-icon-list-middle').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i + 60}.jpg" width="32" height="32" style="cursor:pointer" onclick="pushsaferUpdateIconNumber(${i + 60})"></li>`);
           if (i + 120 <= 177) $('#pushsafer-icon-list-right').append(`<li><img src="https://www.pushsafer.com/assets/icons/${i + 120}.jpg" width="32" height="32" style="cursor:pointer" onclick="pushsaferUpdateIconNumber(${i + 120})"></li>`);
         }
-        $('#pushsafer-template-icon-list').hide();
-        $('#node-config-input-icon').focusin(() => $('#pushsafer-template-icon-list').show());
-        $('#node-config-input-icon').focusout(() => setTimeout(() => $('#pushsafer-template-icon-list').hide(), 250));
+                
+        $('#node-config-input-title').hover(
+          () => $('#pushsafer-config-template-help-title').show(),
+          () => $('#pushsafer-config-template-help-title').hide()
+        );
+        $('#node-config-input-message').hover(
+          () => $('#pushsafer-config-template-help-message').show(),
+          () => $('#pushsafer-config-template-help-message').hide()
+        );
+        $('#node-config-input-sound').hover(
+          () => $('#pushsafer-config-template-help-sound').show(),
+          () => $('#pushsafer-config-template-help-sound').hide()
+        );
+        $('#node-config-input-vibration').hover(
+          () => $('#pushsafer-config-template-help-vibration').show(),
+          () => $('#pushsafer-config-template-help-vibration').hide()
+        );
+        $('#node-config-input-icon').focusin(() => $('#pushsafer-config-template-help-icon').show());
+        $('#node-config-input-icon').focusout(() => setTimeout(() => $('#pushsafer-config-template-help-icon').hide(), 250));
+        $('#node-config-input-iconcolor').hover(
+          () => $('#pushsafer-config-template-help-iconcolor').show(),
+          () => $('#pushsafer-config-template-help-iconcolor').hide()
+        );
+        $('#node-config-input-url').hover(
+          () => $('#pushsafer-config-template-help-url').show(),
+          () => $('#pushsafer-config-template-help-url').hide()
+        );
+        $('#node-config-input-urltitle').hover(
+          () => $('#pushsafer-config-template-help-urltitle').show(),
+          () => $('#pushsafer-config-template-help-urltitle').hide()
+        );
+        $('#node-config-input-image').hover(
+          () => $('#pushsafer-config-template-help-image').show(),
+          () => $('#pushsafer-config-template-help-image').hide()
+        );
+        $('#node-config-input-imageusepayload').hover(
+          () => $('#pushsafer-config-template-help-imageusepayload').show(),
+          () => $('#pushsafer-config-template-help-imageusepayload').hide()
+        );
+        $('#node-config-input-image2').hover(
+          () => $('#pushsafer-config-template-help-image2').show(),
+          () => $('#pushsafer-config-template-help-image2').hide()
+        );
+        $('#node-config-input-image2usepayload').hover(
+          () => $('#pushsafer-config-template-help-image2usepayload').show(),
+          () => $('#pushsafer-config-template-help-image2usepayload').hide()
+        );
+        $('#node-config-input-image3').hover(
+          () => $('#pushsafer-config-template-help-image3').show(),
+          () => $('#pushsafer-config-template-help-image3').hide()
+        );
+        $('#node-config-input-image3usepayload').hover(
+          () => $('#pushsafer-config-template-help-image3usepayload').show(),
+          () => $('#pushsafer-config-template-help-image3usepayload').hide()
+        );
+        $('#node-config-input-imagesize').hover(
+          () => $('#pushsafer-config-template-help-imagesize').show(),
+          () => $('#pushsafer-config-template-help-imagesize').hide()
+        );
+        $('#node-config-input-timetolive').hover(
+          () => $('#pushsafer-config-template-help-timetolive').show(),
+          () => $('#pushsafer-config-template-help-timetolive').hide()
+        );
+        $('#node-config-input-priority').hover(
+          () => $('#pushsafer-config-template-help-priority').show(),
+          () => $('#pushsafer-config-template-help-priority').hide()
+        );
+        $('#node-config-input-retry').hover(
+          () => $('#pushsafer-config-template-help-retry').show(),
+          () => $('#pushsafer-config-template-help-retry').hide()
+        );
+        $('#node-config-input-expire').hover(
+          () => $('#pushsafer-config-template-help-expire').show(),
+          () => $('#pushsafer-config-template-help-expire').hide()
+        );
+        $('#node-config-input-answer').hover(
+          () => $('#pushsafer-config-template-help-answer').show(),
+          () => $('#pushsafer-config-template-help-answer').hide()
+        );
+        $('#node-config-input-confirm').hover(
+          () => $('#pushsafer-config-template-help-confirm').show(),
+          () => $('#pushsafer-config-template-help-confirm').hide()
+        );
+        $('#node-config-input-giphy').hover(
+          () => $('#pushsafer-config-template-help-giphy').show(),
+          () => $('#pushsafer-config-template-help-giphy').hide()
+        );
+
+        $('#node-config-input-imageusepayload').change(function (e) {
+          if ($(this).prop('checked')) {
+            $('#node-config-input-image').val(null);
+            $('#node-config-input-image').prop('disabled', true);
+          } else {
+            $('#node-config-input-image').prop('disabled', false);
+          }
+        });
+        $('#node-config-input-imageusepayload').change();
+
+        $('#node-config-input-image2usepayload').change(function (e) {
+          if ($(this).prop('checked')) {
+            $('#node-config-input-image2').val(null);
+            $('#node-config-input-image2').prop('disabled', true);
+          } else {
+            $('#node-config-input-image2').prop('disabled', false);
+          }
+        });
+        $('#node-config-input-image2usepayload').change();
+
+        $('#node-config-input-image3usepayload').change(function (e) {
+          if ($(this).prop('checked')) {
+            $('#node-config-input-image3').val(null);
+            $('#node-config-input-image3').prop('disabled', true);
+          } else {
+            $('#node-config-input-image3').prop('disabled', false);
+          }
+        });
+        $('#node-config-input-image3usepayload').change();
       }, 250);
     },
-    oneditsave: function(){
-        delete window['pushsaferUpdateIconNumber'];
+    oneditsave: function () {
+      delete window['pushsaferUpdateIconNumber'];
     },
-    oneditcancel: function(){
-        delete window['pushsaferUpdateIconNumber'];
-    }
+    oneditcancel: function () {
+      delete window['pushsaferUpdateIconNumber'];
+    },
   });
 </script>
