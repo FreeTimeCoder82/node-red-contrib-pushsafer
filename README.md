@@ -20,7 +20,8 @@ Or use the palette manager inside of Node-RED
 ## Send node
 With the Send API node use Private Key to send a push notification to a device or a device group 
 
-### Message parameter which can be used. If passed the parameter will replace the value from the template.
+#### Message parameters which can be used.
+#### If passed the parameter will replace the value from the template.
 
 - `msg.payload` (any): Message / text of the push notification; [HTML Styling](https://www.pushsafer.com/pushapi_ext#API-HTML) can be used -> [Pushsafer API doc](https://www.pushsafer.com/pushapi_ext#API-M); 
 - `msg.devices` (string): This parameter controls to which devices or device groups the message is sent to -> [Pushsafer API doc](https://www.pushsafer.com/pushapi_ext#API-D)
@@ -46,6 +47,6 @@ With the Send API node use Private Key to send a push notification to a device o
 ## Read node
 
 With the Read API node use Private Key and Device ID to retrieve all messages of a device (including all parameters).
-### Message parameter which can be used. If passed the parameter will replace the value from the template.
+#### Message parameter which can be used. If passed the parameter will replace the value from the template.
 
-- `msg.payload` (any): Message / text of the push notification; [HTML Styling](https://www.pushsafer.com/pushapi_ext#API-HTML) can be used -> [Pushsafer API doc](https://www.pushsafer.com/pushapi_ext#API-M); 
+- `msg.devices` (string): This parameter controls from which device or device group you want to read the messages -> [Pushsafer API doc](https://www.pushsafer.com/pushapi_ext#API-D) 
