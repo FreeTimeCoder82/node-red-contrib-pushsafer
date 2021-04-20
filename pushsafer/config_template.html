@@ -90,7 +90,7 @@
       <input type="number" min="1" max="177" id="node-config-input-icon">
   </div>
   <div class="form-row">
-      <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon color</label>
+      <label for="node-config-input-iconcolor"><i class="fa fa-paint-brush"></i> Icon Color</label>
       <input type="color" value="#FFFFFF" id="node-config-input-iconcolor" class="series-color">
   </div>
   <div class="form-row">
@@ -139,7 +139,7 @@
       </select>
   </div>
   <div class="form-row">
-      <label for="node-config-input-timetolive"><i class="fa fa-heart-o"></i> Time to live</label>
+      <label for="node-config-input-timetolive"><i class="fa fa-heart-o"></i> Time To Live</label>
       <input type="number" min="0" max="43200" step="1" id="node-config-input-timetolive">
   </div>
   <div class="form-row">
@@ -313,89 +313,96 @@
         }
                 
         $('#node-config-input-title').hover(
-          () => $('#pushsafer-config-template-help-title').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-title').show()},
           () => $('#pushsafer-config-template-help-title').hide()
         );
         $('#node-config-input-message').hover(
-          () => $('#pushsafer-config-template-help-message').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-message').show()},
           () => $('#pushsafer-config-template-help-message').hide()
         );
         $('#node-config-input-sound').hover(
-          () => $('#pushsafer-config-template-help-sound').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-sound').show()},
           () => $('#pushsafer-config-template-help-sound').hide()
         );
         $('#node-config-input-vibration').hover(
-          () => $('#pushsafer-config-template-help-vibration').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-vibration').show()},
           () => $('#pushsafer-config-template-help-vibration').hide()
         );
-        $('#node-config-input-icon').focusin(() => $('#pushsafer-config-template-help-icon').show());
-        $('#node-config-input-icon').focusout(() => setTimeout(() => $('#pushsafer-config-template-help-icon').hide(), 250));
+        $('#node-config-input-icon').hover(
+          () => $('#pushsafer-config-template-help-icon').show(),
+          () => {
+            if(!$('#node-config-input-icon').is(':focus')){
+              $('#pushsafer-config-template-help-icon').hide();
+            }
+          }
+        );
+        $('#node-config-input-icon').focusout(()=>{setTimeout(()=>$('#pushsafer-config-template-help-icon').hide(),250)});
         $('#node-config-input-iconcolor').hover(
-          () => $('#pushsafer-config-template-help-iconcolor').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-iconcolor').show()},
           () => $('#pushsafer-config-template-help-iconcolor').hide()
         );
         $('#node-config-input-url').hover(
-          () => $('#pushsafer-config-template-help-url').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-url').show()},
           () => $('#pushsafer-config-template-help-url').hide()
         );
         $('#node-config-input-urltitle').hover(
-          () => $('#pushsafer-config-template-help-urltitle').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-urltitle').show()},
           () => $('#pushsafer-config-template-help-urltitle').hide()
         );
         $('#node-config-input-image').hover(
-          () => $('#pushsafer-config-template-help-image').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-image').show()},
           () => $('#pushsafer-config-template-help-image').hide()
         );
         $('#node-config-input-imageusepayload').hover(
-          () => $('#pushsafer-config-template-help-imageusepayload').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-imageusepayload').show()},
           () => $('#pushsafer-config-template-help-imageusepayload').hide()
         );
         $('#node-config-input-image2').hover(
-          () => $('#pushsafer-config-template-help-image2').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-image2').show()},
           () => $('#pushsafer-config-template-help-image2').hide()
         );
         $('#node-config-input-image2usepayload').hover(
-          () => $('#pushsafer-config-template-help-image2usepayload').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-image2usepayload').show()},
           () => $('#pushsafer-config-template-help-image2usepayload').hide()
         );
         $('#node-config-input-image3').hover(
-          () => $('#pushsafer-config-template-help-image3').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-image3').show()},
           () => $('#pushsafer-config-template-help-image3').hide()
         );
         $('#node-config-input-image3usepayload').hover(
-          () => $('#pushsafer-config-template-help-image3usepayload').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-image3usepayload').show()},
           () => $('#pushsafer-config-template-help-image3usepayload').hide()
         );
         $('#node-config-input-imagesize').hover(
-          () => $('#pushsafer-config-template-help-imagesize').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-imagesize').show()},
           () => $('#pushsafer-config-template-help-imagesize').hide()
         );
         $('#node-config-input-timetolive').hover(
-          () => $('#pushsafer-config-template-help-timetolive').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-timetolive').show()},
           () => $('#pushsafer-config-template-help-timetolive').hide()
         );
         $('#node-config-input-priority').hover(
-          () => $('#pushsafer-config-template-help-priority').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-priority').show()},
           () => $('#pushsafer-config-template-help-priority').hide()
         );
         $('#node-config-input-retry').hover(
-          () => $('#pushsafer-config-template-help-retry').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-retry').show()},
           () => $('#pushsafer-config-template-help-retry').hide()
         );
         $('#node-config-input-expire').hover(
-          () => $('#pushsafer-config-template-help-expire').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-expire').show()},
           () => $('#pushsafer-config-template-help-expire').hide()
         );
         $('#node-config-input-answer').hover(
-          () => $('#pushsafer-config-template-help-answer').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-answer').show()},
           () => $('#pushsafer-config-template-help-answer').hide()
         );
         $('#node-config-input-confirm').hover(
-          () => $('#pushsafer-config-template-help-confirm').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-confirm').show()},
           () => $('#pushsafer-config-template-help-confirm').hide()
         );
         $('#node-config-input-giphy').hover(
-          () => $('#pushsafer-config-template-help-giphy').show(),
+          () => {if(!$('#node-config-input-icon').is(':focus'))$('#pushsafer-config-template-help-giphy').show()},
           () => $('#pushsafer-config-template-help-giphy').hide()
         );
 

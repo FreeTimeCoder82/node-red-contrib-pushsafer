@@ -1,63 +1,131 @@
 <script type="text/x-red" data-help-name="pushsafer_config_template">
-    <p>Configures a template for push-notifications</p>
+  <p>The template node stores a selection of parameters for the send node.<br>
+      By using templates, messages can be more easily designed and reused.</p>
 
-    <h2>Help</h2>
-    <p>Hover an element to get more information about it.</p>
+  <p>Hover an element to get more information about it.</p>
+  <p></p>
+  <p></p>
 
-    <div id="pushsafer-config-template-help-title" style="display: none;">
-        <p>Subject / title of a push-notification, max. 255 characters.</p>
-    </div>
-    
-    <div id="pushsafer-config-template-help-message" style="display: none;">
-        <p>Message / text of the push notification (required), max. 5000 characters, but the push notification will show fewer characters depending on the system. The client APP shows all characters.</p>
-    </div>
+  <div id="pushsafer-config-template-help-title" style="display: none;">
+      <h2>Title</h2>
+      <p>Subject / title of a push-notification, max. 255 characters.</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-sound" style="display: none;">
-        <p>Ringtone / Sound which should be played when receiving the push notification. If the parameter is not passed or left blank, the device plays the default sound. If 0 is passed, the notification is silent! Otherwise you can pass a value from 1 to 62. For Windows 10, only the 24 native sounds are available.</p>
-    </div>
+  <div id="pushsafer-config-template-help-message" style="display: none;">
+      <h2>Message</h2>
+      <p>Message / text of the push notification (required), max. 5000 characters, but the push notification will show fewer characters depending on the system. The client APP shows all characters.</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-vibration" style="display: none;">
-        <p>How often the device should vibrate when receiving a push-notification. blank=device default or a number 1-3, this parameter is due to the system only supported by iOS & Android.</p>
-    </div>
+  <div id="pushsafer-config-template-help-sound" style="display: none;">
+      <h2>Sound</h2>
+      <p>Ringtone / Sound which should be played when receiving the push notification. If the parameter is not passed or left blank, the device plays the default sound. If 0 is passed, the notification is silent! Otherwise you can pass a value from 1 to 62. For Windows 10, only the 24 native sounds are available.</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-icon" style="display: none;">
-        <ol>
-            <div id="pushsafer-icon-list-left" style="float:left">
-            </div>
-            <div id="pushsafer-icon-list-middle" style="float:left; margin-left: 60px">
-            </div>
-            <div id="pushsafer-icon-list-right" style="float:left; margin-left: 60px">
-            </div>
-        </ol>
-    </div>
+  <div id="pushsafer-config-template-help-vibration" style="display: none;">
+      <h2>Vibration</h2>
+      <p>How often the device should vibrate when receiving a push-notification. blank=device default or a number 1-3, this parameter is due to the system only supported by iOS & Android.</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-iconcolor" style="display: none;">
-        <p>With this parameter you can set the icon color in the Client APP.</br>
-            For this, a hexadecimal color code (example for red: #FF0000) must be passed to the parameter.</br>
-            In Windows 10 the push notification displays the icon with colored background</br>
-            In Android >5.0, the APP icon in the push notification is colored in the desired color. Furthermore, this value can set the luminescent color on Android smartphones, which have a (RGB)-LED for notification.
-            In the Client-APP you can filter by icon-color</p>
-    </div>
+  <div id="pushsafer-config-template-help-icon" style="display: none;">
+      <h2>Icon</h2>
+      <p>Instead of the default Pushsafer icon, which is displayed with the push notification, you can choose between 177 other icons. It can be filtered by the icon in the client APP.</p>
+      <p>Click in the icon input field to keep the symbol list open. Then click on the desired symbol and the number will be entered automatically.</p>
+      <ol>
+          <div id="pushsafer-icon-list-left" style="float:left">
+          </div>
+          <div id="pushsafer-icon-list-middle" style="float:left; margin-left: 60px">
+          </div>
+          <div id="pushsafer-icon-list-right" style="float:left; margin-left: 60px">
+          </div>
+      </ol>
+  </div>
 
-    <div id="pushsafer-config-template-help-url" style="display: none;">
-        <p>This URL can be opened directly from the push notification or from the client-app. Links are opened in the systems standard browser. Instead of an URL, URL schemes can also be transmitted. URL schemes open other APPs if they are installed on the device.</p>
-    </div>
+  <div id="pushsafer-config-template-help-iconcolor" style="display: none;">
+      <h2>Icon Color</h2>
+      <p>With this parameter you can set the icon color in the Client APP.</br>
+          For this, a hexadecimal color code (example for red: #FF0000) must be passed to the parameter.</br>
+          In Windows 10 the push notification displays the icon with colored background</br>
+          In Android >5.0, the APP icon in the push notification is colored in the desired color. Furthermore, this value can set the luminescent color on Android smartphones, which have a (RGB)-LED for notification.
+          In the Client-APP you can filter by icon-color</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-urltitle" style="display: none;">
-        <p>Describes the title of the URL. If this parameter is not passed, the URL title is equal to the URL. Only affects the display in the client APP!</p>
-    </div>
+  <div id="pushsafer-config-template-help-url" style="display: none;">
+      <h2>URL</h2>
+      <p>This URL can be opened directly from the push notification or from the client-app. Links are opened in the systems standard browser. Instead of an URL, URL schemes can also be transmitted. URL schemes open other APPs if they are installed on the device.</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-imageusepayload" style="display: none;">
-        <p>If selected, the payload is used as an image. For this the payload must contain a base64 encoded data URL.</p>
-    </div>
+  <div id="pushsafer-config-template-help-urltitle" style="display: none;">
+      <h2>URL Title</h2>
+      <p>Describes the title of the URL. If this parameter is not passed, the URL title is equal to the URL. Only affects the display in the client APP!</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-image2usepayload" style="display: none;">
-        <p>If selected, the payload is used as an image. For this the payload must contain a base64 encoded data URL.</p>
-    </div>
+  <div id="pushsafer-config-template-help-image" style="display: none;">
+      <h2>Image</h2>
+      <p>The path of an image, which will be shown directly in the notification. Local file path or http.</p>
+  </div>
 
-    <div id="pushsafer-config-template-help-image3usepayload" style="display: none;">
-        <p>If selected, the payload is used as an image. For this the payload must contain a base64 encoded data URL.</p>
-    </div>
+  <div id="pushsafer-config-template-help-imageusepayload" style="display: none;">
+      <h2>Use msg.payload as image</h2>
+      <p>If selected, the payload is used as an image. For this the payload must contain a base64 encoded data URL.</p>
+  </div>
 
-    
+  <div id="pushsafer-config-template-help-image2" style="display: none;">
+      <h2>Image 2</h2>
+      <p>The path of an image, which will be shown directly in the notification. Local file path or http.</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-image2usepayload" style="display: none;">
+      <h2>Use msg.payload as image 2</h2>
+      <p>If selected, the payload is used as an image. For this the payload must contain a base64 encoded data URL.</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-image3" style="display: none;">
+      <h2>Image 3</h2>
+      <p>The path of an image, which will be shown directly in the notification. Local file path or http.</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-image3usepayload" style="display: none;">
+      <h2>Use msg.payload as image 3</h2>
+      <p>If selected, the payload is used as an image. For this the payload must contain a base64 encoded data URL.</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-imagesize" style="display: none;">
+      <h2>Image Size</h2>
+      <p>Loading an image into the push notification is limited in time! For large images and bad Internet connection, it can happen that the image can not be loaded during this time and thus does not appear in the push notification! Reducing the image size can help!</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-timetolive" style="display: none;">
+      <h2>Time To Live</h2>
+      <p>Time2Live specifies how long a message should be kept in the client APP until it is automatically deleted. 0 or empty = do not automatically delete, an integer value 1-43200 the time in minutes before automatic deletion.</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-priority" style="display: none;">
+      <h2>Priority</h2>
+      <p>You can set a priority parameter pr for your push-notifications. This priority value determines where the push notification will be put in the notification shade (this sorting affects Android devices only). That means - notifications with a high priority are displayed above a notification with a low priority, independent of when the notification was received!</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-retry" style="display: none;">
+      <h2>Retry</h2>
+      <p>With the retry / resend Parameter, a message will be resent after a certain time (60-10800 seconds, 60's steps). Resending can be stopped by opening the message in the Client APP or on the Pushsafer website or using the parameter ex. Each resending requires an API call!</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-expire" style="display: none;">
+      <h2>Expire</h2>
+      <p>The expire parameter stops resending push-notifications after a specified time (60-10800 seconds).</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-answer" style="display: none;">
+      <h2>Answer</h2>
+      <p>To respond to push notifications, pass the parameter with the value 1. Answers can be written or viewed via the Client APP or via the Pushsafer website.</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-confirm" style="display: none;">
+      <h2>Confirm</h2>
+      <p>With the confirm parameter, a message is sent again after a specified period of time (10-10800 seconds, steps of 10s) until the message confirmed by opening the client APP or on the Pushsafer website. Confirm has priority over Retry and Expire! Each resending requires an API call!</p>
+  </div>
+
+  <div id="pushsafer-config-template-help-giphy" style="display: none;">
+      <h2>Giphy GIF</h2>
+      <p>Send GIPHY GIFs using this parameter. Search and call up your desired GIF picture at GIPHY.com, copy the code and pass it to the parameter.</p>
+  </div>
 </script>

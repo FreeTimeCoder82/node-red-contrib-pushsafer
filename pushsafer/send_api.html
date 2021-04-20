@@ -1,44 +1,44 @@
 <script type="text/x-red" data-template-name="pushsafer_send_api">
-    <div class="form-row">
-        <label for="node-input-configApi"><i class="fa fa-key"></i> <span data-i18n="pushsafer.send_api.key"></span></label>
-        <input type="text" id="node-input-configKeyApi">
-    </div>
-    <div class="form-row">
-        <label for="node-input-configDevices"><i class="fa fa-tablet"></i> <span data-i18n="pushsafer.send_api.devices"></span></label>
-        <input type="text" id="node-input-configDevicesApi">
-    </div>
-    <div class="form-row">
-        <label for="node-input-configTemplate"><i class="fa fa-key"></i> <span data-i18n="pushsafer.send_api.template"></span></label>
-        <input type="text" id="node-input-configTemplate">
-    </div>
-    <br/>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
+  <div class="form-row">
+      <label for="node-input-configApi"><i class="fa fa-key"></i> <span data-i18n="pushsafer.send_api.key"></span></label>
+      <input type="text" id="node-input-configKeyApi">
+  </div>
+  <div class="form-row">
+      <label for="node-input-configDevices"><i class="fa fa-tablet"></i> <span data-i18n="pushsafer.send_api.devices"></span></label>
+      <input type="text" id="node-input-configDevicesApi">
+  </div>
+  <div class="form-row">
+      <label for="node-input-configTemplate"><i class="fa fa-key"></i> <span data-i18n="pushsafer.send_api.template"></span></label>
+      <input type="text" id="node-input-configTemplate">
+  </div>
+  <br/>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('pushsafer_send_api',{
-        category: 'pushsafer',
-        defaults: {            
-            name: {value: ''},
-            configKeyApi: {type: 'pushsafer_config_key_api', required: true},
-            configDevicesApi: {type: 'pushsafer_config_devices_api', required: true},
-            configTemplate: {type: 'pushsafer_config_template', required: true}
-        },
-        color: '#FC5800',
-        inputs: 1,
-        inputLabels: 'notification message',
-        outputs: 1,
-        outputLabels: ['message ID'],
-        icon: 'pushsafer.png',
-        align: 'right',
-        label: function() {
-            return this.name || this._('pushsafer.send_api.newInstance');
-        },
-        paletteLabel: function(){
-            return this._('pushsafer.send_api.nodeName');
-        }
-    });
+  RED.nodes.registerType('pushsafer_send_api', {
+    category: 'pushsafer',
+    defaults: {
+      name: { value: '' },
+      configKeyApi: { type: 'pushsafer_config_key_api', required: true },
+      configDevicesApi: { type: 'pushsafer_config_devices_api', required: true },
+      configTemplate: { type: 'pushsafer_config_template', required: true },
+    },
+    color: '#FC5800',
+    inputs: 1,
+    inputLabels: 'notification message',
+    outputs: 1,
+    outputLabels: ['message ID'],
+    icon: 'pushsafer.png',
+    align: 'right',
+    label: function () {
+      return this.name || this._('pushsafer.send_api.newInstance');
+    },
+    paletteLabel: function () {
+      return this._('pushsafer.send_api.nodeName');
+    },
+  });
 </script>
