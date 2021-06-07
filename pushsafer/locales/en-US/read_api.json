@@ -1,11 +1,13 @@
 {
   "pushsafer": {
     "read_api": {
+      "category": "pushsafer",
       "nodeName": "read",
       "newInstance": "New read config",
+      "name": "Name",
+      "namePlaceholder": "Name of the read config",
       "key": "Key",
-      "devices": "Devices",
-      "tip": "The selected API must already be deployed to be used here."
+      "devices": "Devices"  
     }
   }
 }

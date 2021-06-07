@@ -1,10 +1,10 @@
 {
-    "pushsafer": {
-        "config_template": {
-            "nodeName": "Template",
-            "newInstance": "New template config",
-            "namePlaceholder": "Name of the template config",
-            "title": "Title"
-        }
+  "pushsafer": {
+    "config_template": {
+      "nodeName": "Template",
+      "newInstance": "New template config",
+      "namePlaceholder": "Name of the template config",
+      "title": "Title"
     }
+  }
 }

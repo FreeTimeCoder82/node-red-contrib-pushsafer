@@ -1,13 +1,16 @@
 {
-    "pushsafer": {
-        "config_devices_api": {
-            "nodeName": "Devices",
-            "newInstance": "New devices config",
-            "namePlaceholder": "Name of device config",
-            "key": "Key",
-            "devices": "Devices",
-            "devicesPlaceholder": "Device or device group",
-            "warningNoDevicesFound": "No devices found!"
-        }
+  "pushsafer": {
+    "config_devices_api": {
+      "category": "pushsafer",
+      "nodeName": "Devices",
+      "newInstance": "New devices config",
+      "name": "Name",
+      "namePlaceholder": "Name of devices config",
+      "key": "Key",
+      "devices": "Devices",
+      "devicesPlaceholder": "Device or device group",
+      "tip": "The selected key must already be deployed, to be used here.",
+      "warningNoDevicesFound": "No devices found!"
     }
+  }
 }

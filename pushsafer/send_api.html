@@ -1,26 +1,26 @@
 <script type="text/x-red" data-template-name="pushsafer_send_api">
   <div class="form-row">
       <label for="node-input-configApi"><i class="fa fa-key"></i> <span data-i18n="pushsafer.send_api.key"></span></label>
-      <input type="text" id="node-input-configKeyApi">
+      <input id="node-input-configKeyApi" type="text">
   </div>
   <div class="form-row">
       <label for="node-input-configDevices"><i class="fa fa-tablet"></i> <span data-i18n="pushsafer.send_api.devices"></span></label>
-      <input type="text" id="node-input-configDevicesApi">
+      <input id="node-input-configDevicesApi" type="text">
   </div>
   <div class="form-row">
       <label for="node-input-configTemplate"><i class="fa fa-key"></i> <span data-i18n="pushsafer.send_api.template"></span></label>
-      <input type="text" id="node-input-configTemplate">
+      <input id="node-input-configTemplate" type="text">
   </div>
   <br/>
   <div class="form-row">
-      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-      <input type="text" id="node-input-name" placeholder="Name">
+      <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="pushsafer.send_api.name"></span></label>
+      <input id="node-input-name" type="text" data-i18n="[placeholder]pushsafer.send_api.namePlaceholder">
   </div>
 </script>
 
 <script type="text/javascript">
   RED.nodes.registerType('pushsafer_send_api', {
-    category: 'pushsafer',
+    category: "pushsafer",
     defaults: {
       name: { value: '' },
       configKeyApi: { type: 'pushsafer_config_key_api', required: true },

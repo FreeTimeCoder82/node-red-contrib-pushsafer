@@ -1,10 +1,10 @@
 {
-    "pushsafer": {
-        "config_template": {
-            "nodeName": "Vorlage",
-            "newInstance": "Neue Vorlage Konfiguration",
-            "namePlaceholder": "Name der Vorlage Konfiguration",
-            "title": "Titel"
-        }
+  "pushsafer": {
+    "config_template": {
+      "nodeName": "Vorlage",
+      "newInstance": "Neue Vorlage Konfiguration",
+      "namePlaceholder": "Name der Vorlage Konfiguration",
+      "title": "Titel"
     }
+  }
 }

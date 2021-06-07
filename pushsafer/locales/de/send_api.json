@@ -1,11 +1,14 @@
 {
   "pushsafer": {
     "send_api": {
+      "category": "Pushsafer",
       "nodeName": "Senden",
       "newInstance": "Neue Senden Konfiguration",
+      "name": "Name",
+      "namePlaceholder": "Name der Senden Konfiguration",
       "key": "Schlüssel",
       "devices": "Geräte",
-      "template": "Vorlage"
+      "template": "Vorlage"      
     }
   }
 }

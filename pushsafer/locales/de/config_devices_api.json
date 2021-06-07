@@ -1,13 +1,16 @@
 {
-    "pushsafer": {
-        "config_devices_api": {
-            "nodeName": "Geräte",
-            "newInstance": "Neue Geräte Konfiguration",
-            "namePlaceholder": "Name der Geräte Konfiguration",
-            "key": "Schlüssel",
-            "devices": "Geräte",
-            "devicesPlaceholder": "Gerät oder Gerätegruppe",
-            "warningNoDevicesFound": "Keine Geräte gefunden!"
-        }
+  "pushsafer": {
+    "config_devices_api": {
+      "category": "Pushsafer",
+      "nodeName": "Geräte",
+      "newInstance": "Neue Geräte Konfiguration",
+      "name": "Name",
+      "namePlaceholder": "Name der Geräte Konfiguration",
+      "key": "Schlüssel",
+      "devices": "Geräte",
+      "devicesPlaceholder": "Gerät oder Gerätegruppe",
+      "tip": "Der gewählte Schlüssel muss für die Verwendung bereits übertragen worden sein, um hier genutzt zu werden.",
+      "warningNoDevicesFound": "Keine Geräte gefunden!"
     }
+  }
 }
